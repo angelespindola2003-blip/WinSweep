@@ -2,14 +2,247 @@
 <html lang="es">
 <head>
 <meta charset="UTF-8">
-<title>WinSweep</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>WinSweep | Limpieza inteligente para Windows</title>
+<style>
+:root{
+  --bg:#07130f;
+  --panel:#10241c;
+  --panel2:#163326;
+  --green:#21c987;
+  --text:#f4fff9;
+  --muted:#b8d8cc;
+}
+*{box-sizing:border-box}
+body{
+  margin:0;
+  font-family:Segoe UI,Arial,sans-serif;
+  background:radial-gradient(circle at top,#143527,#07130f 55%);
+  color:var(--text);
+}
+header{
+  padding:24px 8%;
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  border-bottom:1px solid #214638;
+}
+.logo{
+  font-size:26px;
+  font-weight:800;
+}
+.logo span{color:var(--green)}
+nav a{
+  color:var(--muted);
+  text-decoration:none;
+  margin-left:22px;
+}
+.hero{
+  min-height:78vh;
+  display:grid;
+  grid-template-columns:1.1fr .9fr;
+  gap:40px;
+  align-items:center;
+  padding:70px 8%;
+}
+.badge{
+  display:inline-block;
+  background:#123d2c;
+  color:var(--green);
+  padding:8px 14px;
+  border-radius:999px;
+  font-weight:700;
+}
+h1{
+  font-size:64px;
+  line-height:1.05;
+  margin:22px 0;
+}
+p{
+  color:var(--muted);
+  font-size:19px;
+  line-height:1.6;
+}
+.buttons{
+  margin-top:30px;
+}
+.btn{
+  display:inline-block;
+  padding:16px 28px;
+  border-radius:14px;
+  text-decoration:none;
+  font-weight:800;
+  margin-right:12px;
+}
+.primary{
+  background:var(--green);
+  color:#052015;
+}
+.secondary{
+  border:1px solid #3d6b58;
+  color:var(--text);
+}
+.preview{
+  background:linear-gradient(180deg,#173528,#0f221b);
+  border:1px solid #2d5b49;
+  border-radius:28px;
+  padding:24px;
+  box-shadow:0 30px 80px #0008;
+}
+.window{
+  background:#07130f;
+  border-radius:20px;
+  overflow:hidden;
+  border:1px solid #315c4b;
+}
+.bar{
+  height:42px;
+  background:#e9edf3;
+  color:#111;
+  display:flex;
+  align-items:center;
+  padding-left:16px;
+  font-weight:700;
+}
+.app{
+  padding:24px;
+}
+.card{
+  background:var(--panel);
+  border:1px solid #315c4b;
+  border-radius:18px;
+  padding:18px;
+  margin:12px 0;
+}
+.score{
+  font-size:44px;
+  font-weight:900;
+  color:var(--green);
+}
+section{
+  padding:70px 8%;
+}
+.grid{
+  display:grid;
+  grid-template-columns:repeat(3,1fr);
+  gap:20px;
+}
+.feature{
+  background:var(--panel);
+  border:1px solid #315c4b;
+  border-radius:20px;
+  padding:24px;
+}
+.feature h3{
+  margin-top:0;
+}
+footer{
+  padding:35px 8%;
+  color:var(--muted);
+  border-top:1px solid #214638;
+  text-align:center;
+}
+@media(max-width:900px){
+  .hero{grid-template-columns:1fr}
+  h1{font-size:44px}
+  .grid{grid-template-columns:1fr}
+  nav{display:none}
+}
+</style>
 </head>
-<body style="font-family:Segoe UI;background:#0b1220;color:white;text-align:center;padding-top:80px;">
-<h1>WinSweep</h1>
-<p>La limpieza inteligente para Windows.</p>
+<body>
 
-<h2>🚀 Sitio en construcción</h2>
+<header>
+  <div class="logo">Win<span>Sweep</span></div>
+  <nav>
+    <a href="#features">Funciones</a>
+    <a href="#download">Descargar</a>
+    <a href="#contact">Contacto</a>
+  </nav>
+</header>
 
-<p>Próximamente disponible.</p>
+<main class="hero">
+  <div>
+    <span class="badge">v2.0 para Windows</span>
+    <h1>Limpieza inteligente, segura y reversible.</h1>
+    <p>
+      WinSweep limpia archivos temporales, cachés y basura del sistema con cápsulas de recuperación,
+      historial, recordatorios y restauración durante 7 días.
+    </p>
+    <div class="buttons">
+      <a class="btn primary" href="#download">Descargar WinSweep</a>
+      <a class="btn secondary" href="#features">Ver funciones</a>
+    </div>
+  </div>
+
+  <div class="preview">
+    <div class="window">
+      <div class="bar">WinSweep</div>
+      <div class="app">
+        <div class="card">
+          <div>WinSweep Score</div>
+          <div class="score">91/100</div>
+          <strong>Excelente</strong>
+        </div>
+        <div class="card">
+          <strong>Espacio recuperable</strong>
+          <p>1.12 GB detectados para limpieza segura.</p>
+        </div>
+        <div class="card">
+          <strong>Recovery Clean</strong>
+          <p>Crea una cápsula antes de eliminar archivos.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</main>
+
+<section id="features">
+  <h2>Funciones principales</h2>
+  <div class="grid">
+    <div class="feature">
+      <h3>🧹 Limpieza profunda</h3>
+      <p>Analiza cachés, temporales, miniaturas, logs y restos seguros.</p>
+    </div>
+    <div class="feature">
+      <h3>♻ Recovery Clean</h3>
+      <p>Guarda inventario y permite restaurar archivos durante 7 días.</p>
+    </div>
+    <div class="feature">
+      <h3>🛡 Mapa de seguridad</h3>
+      <p>Explica el riesgo de cada categoría antes de limpiar.</p>
+    </div>
+    <div class="feature">
+      <h3>📊 Historial</h3>
+      <p>Registra limpiezas, espacio recuperado y categorías procesadas.</p>
+    </div>
+    <div class="feature">
+      <h3>⏰ Recordatorios</h3>
+      <p>Configura limpieza semanal sin dejar la app abierta.</p>
+    </div>
+    <div class="feature">
+      <h3>⚡ Energía</h3>
+      <p>Apagar, reiniciar, hibernar o suspender con confirmación.</p>
+    </div>
+  </div>
+</section>
+
+<section id="download">
+  <h2>Descargar</h2>
+  <p>
+    La descarga pública estará disponible cuando el instalador final esté firmado y listo para distribución.
+  </p>
+  <a class="btn primary" href="#">Próximamente</a>
+</section>
+
+<section id="contact">
+  <h2>Contacto</h2>
+  <p>Soporte temporal: winsweepapp@gmail.com</p>
+</section>
+
+<footer>
+  © 2026 Angel Rafael Espindola Hernandez. Todos los derechos reservados.
+</footer>
+
 </body>
 </html>
