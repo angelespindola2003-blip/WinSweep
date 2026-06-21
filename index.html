@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html lang="es">
 <head> 
@@ -38,6 +39,71 @@ body{
   padding-top: var(--safe-top);
 }
 
+/* ANIMACIONES KEYFRAMES */
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+@keyframes scaleIn {
+  from {
+    opacity: 0;
+    transform: scale(0.9);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+@keyframes slideInRight {
+  from {
+    opacity: 0;
+    transform: translateX(40px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+@keyframes pulse {
+  0%, 100% { transform: scale(1); }
+  50% { transform: scale(1.05); }
+}
+
+@keyframes float {
+  0%, 100% { transform: translateY(0px); }
+  50% { transform: translateY(-10px); }
+}
+
+/* CLASES DE ANIMACION */
+.animate-on-scroll {
+  opacity: 0;
+  transition: all 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.animate-on-scroll.visible {
+  opacity: 1;
+}
+
+.fade-up { transform: translateY(30px); }
+.fade-up.visible { transform: translateY(0); }
+
+.scale-in { transform: scale(0.95); }
+.scale-in.visible { transform: scale(1); }
+
 /* HEADER ESTILO META AI */
 header{
   padding: 12px 5%;
@@ -53,6 +119,7 @@ header{
   backdrop-filter: blur(12px);
   -webkit-backdrop-filter: blur(12px);
   z-index: 1000;
+  animation: fadeIn 0.5s ease;
 }
 
 .brand{
@@ -60,6 +127,15 @@ header{
   align-items: center;
   gap: 10px;
   text-decoration: none;
+  transition: transform 0.2s ease;
+}
+
+.brand:hover {
+  transform: scale(1.02);
+}
+
+.brand:active {
+  transform: scale(0.98);
 }
 
 .brand-icon{
@@ -67,6 +143,7 @@ header{
   height: 32px;
   border-radius: 8px;
   display: block;
+  animation: scaleIn 0.6s ease 0.2s both;
 }
 
 .brand-text{
@@ -74,6 +151,7 @@ header{
   font-weight: 700;
   color: var(--text);
   letter-spacing: -0.3px;
+  animation: fadeIn 0.6s ease 0.3s both;
 }
 .brand-text span{color:var(--green)}
 
@@ -89,6 +167,12 @@ nav {
   padding: 8px 12px;
   border-radius: 8px;
   font-size: 18px;
+  transition: all 0.2s ease;
+}
+
+.menu-btn:active {
+  transform: scale(0.95);
+  background: var(--panel);
 }
 
 /* HERO MOBILE-FIRST */
@@ -110,6 +194,7 @@ nav {
   border-radius:999px;
   font-weight:700;
   font-size: 14px;
+  animation: fadeInUp 0.6s ease 0.1s both;
 }
 
 h1{
@@ -117,6 +202,7 @@ h1{
   line-height:1.1;
   margin:16px 0;
   font-weight: 800;
+  animation: fadeInUp 0.6s ease 0.2s both;
 }
 
 p{
@@ -125,6 +211,7 @@ p{
   line-height:1.6;
   max-width: 500px;
   margin: 0 auto;
+  animation: fadeInUp 0.6s ease 0.3s both;
 }
 
 .buttons{
@@ -134,6 +221,7 @@ p{
   gap: 12px;
   width: 100%;
   max-width: 400px;
+  animation: fadeInUp 0.6s ease 0.4s both;
 }
 
 .btn{
@@ -145,7 +233,27 @@ p{
   font-size: 16px;
   text-align: center;
   touch-action: manipulation;
-  transition: transform 0.1s ease;
+  transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+  position: relative;
+  overflow: hidden;
+}
+
+.btn::before {
+  content: '';
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 0;
+  height: 0;
+  border-radius: 50%;
+  background: rgba(255,255,255,0.2);
+  transform: translate(-50%, -50%);
+  transition: width 0.6s, height 0.6s;
+}
+
+.btn:active::before {
+  width: 300px;
+  height: 300px;
 }
 
 .btn:active{
@@ -155,12 +263,23 @@ p{
 .primary{
   background:var(--green);
   color:#052015;
+  box-shadow: 0 4px 20px rgba(33, 201, 135, 0.3);
+}
+
+.primary:hover {
+  box-shadow: 0 6px 30px rgba(33, 201, 135, 0.5);
+  transform: translateY(-2px);
 }
 
 .secondary{
   border: 1px solid #3d6b58;
   color: var(--text);
   background: rgba(16, 36, 28, 0.6);
+}
+
+.secondary:hover {
+  background: rgba(16, 36, 28, 0.9);
+  border-color: var(--green);
 }
 
 .preview{
@@ -171,6 +290,7 @@ p{
   box-shadow: 0 20px 60px #0006;
   width: 100%;
   max-width: 400px;
+  animation: slideInRight 0.8s ease 0.5s both;
 }
 
 .window{
@@ -178,6 +298,11 @@ p{
   border-radius: 16px;
   overflow: hidden;
   border: 1px solid #315c4b;
+  transition: transform 0.3s ease;
+}
+
+.preview:hover .window {
+  transform: scale(1.02);
 }
 
 .bar{
@@ -202,6 +327,17 @@ p{
   padding: 14px;
   margin: 10px 0;
   font-size: 14px;
+  transition: all 0.3s ease;
+  animation: fadeInUp 0.6s ease both;
+}
+
+.card:nth-child(1) { animation-delay: 0.7s; }
+.card:nth-child(2) { animation-delay: 0.8s; }
+.card:nth-child(3) { animation-delay: 0.9s; }
+
+.card:hover {
+  border-color: var(--green);
+  transform: translateX(4px);
 }
 
 .score{
@@ -209,6 +345,7 @@ p{
   font-weight: 900;
   color: var(--green);
   margin: 4px 0;
+  animation: pulse 2s ease-in-out infinite;
 }
 
 /* SECCIONES */
@@ -233,7 +370,8 @@ h2 {
   border: 1px solid #315c4b;
   border-radius: 16px;
   padding: 20px;
-  transition: transform 0.2s ease;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  cursor: pointer;
 }
 
 .feature:active {
@@ -243,6 +381,11 @@ h2 {
 .feature h3{
   margin: 0 0 8px 0;
   font-size: 1.1rem;
+  transition: color 0.2s ease;
+}
+
+.feature:hover h3 {
+  color: var(--green);
 }
 
 .feature p {
@@ -282,6 +425,7 @@ footer{
     text-decoration: none;
     font-size: 15px;
     font-weight: 500;
+    transition: color 0.2s ease;
   }
   nav a:hover { color: var(--green); }
   .brand-icon { width: 36px; height: 36px; border-radius: 10px; }
@@ -301,10 +445,11 @@ footer{
   .buttons { justify-content: flex-start; }
   h1 { font-size: 64px; }
   .grid { grid-template-columns: repeat(3, 1fr); }
-  .preview { max-width: none; }
+  .preview { max-width: none; animation: float 3s ease-in-out infinite; }
   .feature:hover {
-    transform: translateY(-4px);
+    transform: translateY(-6px);
     border-color: var(--green);
+    box-shadow: 0 10px 40px rgba(33, 201, 135, 0.15);
   }
 }
 
@@ -368,36 +513,36 @@ footer{
 </main>
 
 <section id="features">
-  <h2>Funciones principales</h2>
+  <h2 class="animate-on-scroll fade-up">Funciones principales</h2>
   <div class="grid">
-    <div class="feature">
+    <div class="feature animate-on-scroll fade-up">
       <h3>🧹 Limpieza profunda</h3>
       <p>Analiza cachés, temporales, miniaturas, logs y restos seguros.</p>
     </div>
-    <div class="feature">
+    <div class="feature animate-on-scroll fade-up">
       <h3>♻ Recovery Clean</h3>
       <p>Guarda inventario y permite restaurar archivos durante 7 días.</p>
     </div>
-    <div class="feature">
+    <div class="feature animate-on-scroll fade-up">
       <h3>🛡 Mapa de seguridad</h3>
       <p>Explica el riesgo de cada categoría antes de limpiar.</p>
     </div>
-    <div class="feature">
+    <div class="feature animate-on-scroll fade-up">
       <h3>📊 Historial</h3>
       <p>Registra limpiezas, espacio recuperado y categorías procesadas.</p>
     </div>
-    <div class="feature">
+    <div class="feature animate-on-scroll fade-up">
       <h3>⏰ Recordatorios</h3>
       <p>Configura limpieza semanal sin dejar la app abierta.</p>
     </div>
-    <div class="feature">
+    <div class="feature animate-on-scroll fade-up">
       <h3>⚡ Energía</h3>
       <p>Apagar, reiniciar, hibernar o suspender con confirmación.</p>
     </div>
   </div>
 </section>
 
-<section id="download">
+<section id="download" class="animate-on-scroll scale-in">
   <h2>Descargar</h2>
   <p>
     La descarga pública estará disponible cuando el instalador final esté firmado y listo para distribución.
@@ -405,7 +550,7 @@ footer{
   <a class="btn primary" href="#">Próximamente</a>
 </section>
 
-<section id="contact">
+<section id="contact" class="animate-on-scroll fade-up">
   <h2>Contacto</h2>
   <p>Soporte temporal: drip3pya1ngel2@gmail.com</p>
 </section>
@@ -415,11 +560,12 @@ footer{
 </footer>
 
 <script>
-// Menu mobile
+// Menu mobile con animacion
 document.getElementById('menuBtn')?.addEventListener('click', () => {
   const nav = document.querySelector('nav');
   if (nav.style.display === 'flex') {
-    nav.style.display = 'none';
+    nav.style.animation = 'fadeInUp 0.3s ease reverse';
+    setTimeout(() => { nav.style.display = 'none'; }, 300);
   } else {
     nav.style.display = 'flex';
     nav.style.position = 'absolute';
@@ -432,7 +578,31 @@ document.getElementById('menuBtn')?.addEventListener('click', () => {
     nav.style.flexDirection = 'column';
     nav.style.gap = '1rem';
     nav.style.boxShadow = '0 10px 40px rgba(0,0,0,0.5)';
+    nav.style.animation = 'fadeInUp 0.3s ease';
   }
+});
+
+// Scroll reveal - animaciones al hacer scroll
+const observerOptions = {
+  threshold: 0.1,
+  rootMargin: '0px 0px -50px 0px'
+};
+
+const observer = new IntersectionObserver((entries) => {
+  entries.forEach(entry => {
+    if (entry.isIntersecting) {
+      entry.target.classList.add('visible');
+    }
+  });
+}, observerOptions);
+
+document.querySelectorAll('.animate-on-scroll').forEach(el => {
+  observer.observe(el);
+});
+
+// Delay escalonado para features
+document.querySelectorAll('.feature').forEach((el, index) => {
+  el.style.transitionDelay = `${index * 0.1}s`;
 });
 </script>
 
