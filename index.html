@@ -4,6 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, viewport-fit=cover">
 <title>WinSweep | Limpieza inteligente para Windows</title>
+<link rel="icon" href="./WinSweep.ico" type="image/x-icon">
 <style>
 :root{
   --bg:#07130f;
@@ -37,29 +38,47 @@ body{
   padding-top: var(--safe-top);
 }
 
-/* HEADER MOBILE */
+/* HEADER ESTILO META AI */
 header{
-  padding: 16px 5%;
-  padding-top: calc(16px + var(--safe-top));
+  padding: 12px 5%;
+  padding-top: calc(12px + var(--safe-top));
   display:flex;
   justify-content:space-between;
   align-items:center;
-  border-bottom:1px solid var(--border);
-  position: sticky;
+  border-bottom:1px solid rgba(33, 70, 56, 0.5);
+  position: fixed;
   top: 0;
-  background: rgba(7, 19, 15, 0.95);
+  width: 100%;
+  background: rgba(7, 19, 15, 0.85);
   backdrop-filter: blur(12px);
-  z-index: 100;
+  -webkit-backdrop-filter: blur(12px);
+  z-index: 1000;
 }
 
-.logo{
-  font-size: 22px;
-  font-weight:800;
+.brand{
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  text-decoration: none;
 }
-.logo span{color:var(--green)}
+
+.brand-icon{
+  width: 32px;
+  height: 32px;
+  border-radius: 8px;
+  display: block;
+}
+
+.brand-text{
+  font-size: 20px;
+  font-weight: 700;
+  color: var(--text);
+  letter-spacing: -0.3px;
+}
+.brand-text span{color:var(--green)}
 
 nav {
-  display: none; /* Mobile: oculto, usamos menu hamburguesa */
+  display: none;
 }
 
 .menu-btn {
@@ -79,7 +98,7 @@ nav {
   flex-direction: column;
   gap: 32px;
   align-items: center;
-  padding: 40px 5%;
+  padding: 100px 5% 40px;
   text-align: center;
 }
 
@@ -250,21 +269,23 @@ footer{
 
 /* TABLET */
 @media(min-width: 640px){
-  header { padding: 24px 8%; }
-  .hero { padding: 60px 8%; }
+  header { padding: 16px 8%; }
+  .hero { padding: 110px 8% 60px; }
   section { padding: 60px 8%; }
   .buttons { flex-direction: row; justify-content: center; }
   .btn { display: inline-block; }
   .grid { grid-template-columns: repeat(2, 1fr); gap: 20px; }
-  nav { display: block; }
+  nav { display: flex; align-items: center; gap: 24px; }
   .menu-btn { display: none; }
   nav a{
     color: var(--muted);
     text-decoration: none;
-    margin-left: 22px;
     font-size: 15px;
+    font-weight: 500;
   }
   nav a:hover { color: var(--green); }
+  .brand-icon { width: 36px; height: 36px; border-radius: 10px; }
+  .brand-text { font-size: 22px; }
 }
 
 /* DESKTOP */
@@ -274,7 +295,7 @@ footer{
     grid-template-columns: 1.1fr .9fr;
     gap: 40px;
     text-align: left;
-    padding: 70px 8%;
+    padding: 120px 8% 70px;
   }
   .hero p { margin: 0; }
   .buttons { justify-content: flex-start; }
@@ -298,7 +319,10 @@ footer{
 <body>
 
 <header>
-  <div class="logo">Win<span>Sweep</span></div>
+  <a href="/" class="brand">
+    <img src="./WinSweep.ico" alt="WinSweep" class="brand-icon">
+    <div class="brand-text">Win<span>Sweep</span></div>
+  </a>
   <nav>
     <a href="#features">Funciones</a>
     <a href="#download">Descargar</a>
@@ -391,19 +415,24 @@ footer{
 </footer>
 
 <script>
-// Menu mobile básico
+// Menu mobile
 document.getElementById('menuBtn')?.addEventListener('click', () => {
   const nav = document.querySelector('nav');
-  nav.style.display = nav.style.display === 'block' ? 'none' : 'block';
-  nav.style.position = 'absolute';
-  nav.style.top = '70px';
-  nav.style.right = '5%';
-  nav.style.background = '#07130f';
-  nav.style.border = '1px solid #214638';
-  nav.style.borderRadius = '12px';
-  nav.style.padding = '1rem';
-  nav.style.flexDirection = 'column';
-  nav.style.gap = '1rem';
+  if (nav.style.display === 'flex') {
+    nav.style.display = 'none';
+  } else {
+    nav.style.display = 'flex';
+    nav.style.position = 'absolute';
+    nav.style.top = '60px';
+    nav.style.right = '5%';
+    nav.style.background = '#07130f';
+    nav.style.border = '1px solid #214638';
+    nav.style.borderRadius = '12px';
+    nav.style.padding = '1rem';
+    nav.style.flexDirection = 'column';
+    nav.style.gap = '1rem';
+    nav.style.boxShadow = '0 10px 40px rgba(0,0,0,0.5)';
+  }
 });
 </script>
 
