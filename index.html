@@ -1,68 +1,115 @@
+<!-- Archivo principal de la pagina de WinSweep, aqui empieza todo el desmadre de la web -->
 <!DOCTYPE html>
 <html lang="es">
+<!-- lang es para que el navegador sepa que la pagina esta en español -->
 <head>
+  <!-- Aqui van los datos que no se ven directo en la pagina, pero sirven para el navegador y google -->
+    <!-- UTF-8 para que los acentos y la ñ no salgan raros -->
   <meta charset="UTF-8" />
+    <!-- Esto hace que se mire bien en celular y pc -->
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <!-- Titulo que sale arriba en la pestaña del navegador -->
   <title>WinSweep 2.0.1 | Limpieza inteligente para Windows</title>
+    <!-- Descripcion para buscadores, asi google sabe de que trata mi pagina -->
   <meta name="description" content="WinSweep 2.0.1: limpieza segura, reversible y profesional para Windows con Recovery Clean, cápsulas, duplicados inteligentes, temas, licencia HWID y certificado PDF." />
+    <!-- Icono de WinSweep en la pestaña -->
   <link rel="icon" href="./WinSweep.ico" type="image/x-icon" />
+    <!-- Aqui empieza el CSS, osea todo el diseño de la pagina -->
   <style>
+    /* Variables globales: aqui guardo colores y sombras para no repetirlos a cada rato */
     :root {
       --bg:#050914; --bg2:#081326; --panel:rgba(15,31,56,.72); --panel2:rgba(22,44,76,.9);
       --line:rgba(121,166,255,.22); --text:#f8fbff; --muted:#b9c8e2; --blue:#1e90ff; --cyan:#38e8ff;
       --green:#29d88f; --violet:#8b5cf6; --orange:#ff6b35; --danger:#ff4d5d; --shadow:0 30px 90px rgba(0,0,0,.42);
     }
+    /* Ajuste general para que los tamaños no se rompan */
     *{box-sizing:border-box} html{scroll-behavior:smooth} body{margin:0;font-family:"Segoe UI",system-ui,sans-serif;color:var(--text);background:var(--bg);overflow-x:hidden}
+    /* Fondo grande con degradados, para que no se vea plana la pagina */
     body:before{content:"";position:fixed;inset:0;z-index:-3;background:radial-gradient(circle at 12% 8%,rgba(30,144,255,.3),transparent 30rem),radial-gradient(circle at 80% 15%,rgba(139,92,246,.23),transparent 32rem),radial-gradient(circle at 48% 95%,rgba(41,216,143,.15),transparent 40rem),linear-gradient(180deg,#071121,#050914 52%,#02040a)}
+    /* Ruido visual suave, es como textura para que se vea mas pro */
     body:after{content:"";position:fixed;inset:0;z-index:-2;opacity:.055;background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 220 220' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.78' numOctaves='3'/%3E%3C/filter%3E%3Crect width='220' height='220' filter='url(%23n)'/%3E%3C/svg%3E")}
+    /* Quitamos estilos feos por defecto de links e imagenes */
     a{color:inherit;text-decoration:none} img{display:block;max-width:100%} button,input,textarea{font:inherit}
+    /* Barra superior fija, siempre se queda arriba */
     .topbar{position:fixed;top:0;left:0;right:0;z-index:20;display:flex;align-items:center;justify-content:space-between;padding:14px clamp(16px,5vw,70px);background:rgba(4,9,20,.72);backdrop-filter:blur(18px);border-bottom:1px solid var(--line)}
+    /* Logo y nombre WinSweep */
     .brand{display:flex;align-items:center;gap:12px;font-size:23px;font-weight:950;letter-spacing:-.04em} .brand img{width:36px;height:36px;border-radius:10px} .brand em{font-style:normal;color:var(--cyan)}
+    /* Menu de navegacion de la parte superior */
     nav{display:flex;gap:22px;color:var(--muted);font-weight:700;font-size:14px} nav a:hover{color:var(--cyan)}
+    /* Botones generales de toda la web */
     .btn{border:0;border-radius:16px;padding:14px 20px;font-weight:950;cursor:pointer;display:inline-flex;align-items:center;justify-content:center;gap:10px;transition:.25s ease;white-space:nowrap}
     .btn.primary{color:#02111d;background:linear-gradient(135deg,var(--blue),var(--cyan));box-shadow:0 18px 46px rgba(30,144,255,.32)}
     .btn.ghost{color:var(--text);background:rgba(17,34,61,.72);border:1px solid var(--line)} .btn.whats{background:#25D366;color:#04180c} .btn:hover{transform:translateY(-3px);filter:brightness(1.08)}
+    /* Primera seccion grande, lo primero que ve el cliente */
     .hero{min-height:100svh;display:grid;grid-template-columns:.88fr 1.12fr;gap:42px;align-items:center;padding:116px clamp(16px,5vw,70px) 54px}
+    /* Etiqueta chiquita tipo aviso premium */
     .pill{display:inline-flex;gap:10px;align-items:center;width:max-content;padding:9px 14px;border:1px solid rgba(56,232,255,.35);border-radius:999px;background:rgba(56,232,255,.09);color:#bff8ff;font-weight:900}
+    /* Titulo principal, grande para que impacte */
     h1{font-size:clamp(42px,7vw,92px);line-height:.92;letter-spacing:-.075em;margin:18px 0} .grad{background:linear-gradient(90deg,#fff,var(--cyan),var(--green));-webkit-background-clip:text;background-clip:text;color:transparent}
+    /* Texto descriptivo bajo el titulo */
     .lead{color:var(--muted);font-size:clamp(17px,2vw,22px);line-height:1.6;max-width:720px} .actions{display:flex;flex-wrap:wrap;gap:14px;margin-top:30px}
+    /* Aviso de vista previa sin licencia */
     .preview-note{margin-top:16px;color:#d9e7ff;background:rgba(255,255,255,.06);border:1px solid var(--line);padding:13px 16px;border-radius:18px;line-height:1.45}
+    /* Captura principal con efecto 3D y movimiento */
     .hero-card{position:relative;border:1px solid var(--line);border-radius:30px;padding:10px;background:linear-gradient(180deg,rgba(255,255,255,.08),rgba(255,255,255,.02));box-shadow:var(--shadow);transform:perspective(1200px) rotateY(-7deg) rotateX(3deg);animation:float 4.4s ease-in-out infinite}
     .hero-card img{border-radius:22px;border:1px solid rgba(255,255,255,.12)}
+    /* Animacion de flotacion de la captura principal */
     @keyframes float{0%,100%{transform:perspective(1200px) rotateY(-7deg) rotateX(3deg) translateY(0)}50%{transform:perspective(1200px) rotateY(-7deg) rotateX(3deg) translateY(-12px)}}
+    /* Separacion general para cada seccion */
     section{padding:74px clamp(16px,5vw,70px)} .section-title{text-align:center;max-width:920px;margin:0 auto 34px} .section-title h2{font-size:clamp(34px,5vw,66px);line-height:1;letter-spacing:-.065em;margin:0 0 12px} .section-title p{color:var(--muted);font-size:18px;line-height:1.6}
+    /* Tarjetas de estadisticas debajo del inicio */
     .stats{display:grid;grid-template-columns:repeat(4,1fr);gap:16px;padding:0 clamp(16px,5vw,70px) 50px;margin-top:-38px} .stat{padding:24px;border:1px solid var(--line);border-radius:24px;background:var(--panel);backdrop-filter:blur(16px)} .stat strong{display:block;font-size:clamp(28px,3.4vw,48px);letter-spacing:-.055em} .stat span{color:var(--muted)}
+    /* Contenedor de tarjetas de funciones */
     .cards{display:grid;grid-template-columns:repeat(3,1fr);gap:18px} .card{padding:25px;border:1px solid var(--line);border-radius:26px;background:linear-gradient(180deg,var(--panel2),rgba(13,25,46,.68));min-height:205px;transition:.25s} .card:hover{transform:translateY(-7px);border-color:rgba(56,232,255,.55)} .icon{font-size:35px} .card h3{font-size:24px;margin:16px 0 8px} .card p{color:var(--muted);line-height:1.58;margin:0}
+    /* Apartado donde explico el WinSweep Score */
     .score-box{display:grid;grid-template-columns:1fr 1fr;gap:20px;align-items:center;background:linear-gradient(135deg,rgba(30,144,255,.12),rgba(139,92,246,.12));border:1px solid var(--line);border-radius:30px;padding:28px;box-shadow:var(--shadow)} .meter{width:min(290px,70vw);aspect-ratio:1;border-radius:50%;background:conic-gradient(var(--cyan) 0 88%,rgba(255,255,255,.1) 88% 100%);display:grid;place-items:center;margin:auto} .meter div{width:72%;aspect-ratio:1;border-radius:50%;background:#071121;display:grid;place-items:center;text-align:center} .meter b{font-size:54px} .meter small{color:var(--muted)}
+    /* Galeria de capturas de la app */
     .gallery{display:grid;grid-template-columns:repeat(3,1fr);gap:18px} .shot-card{text-align:left;color:var(--text);border:1px solid var(--line);border-radius:24px;background:rgba(17,34,61,.72);padding:9px;cursor:zoom-in;transition:.25s;overflow:hidden} .shot-card:hover{transform:translateY(-6px);border-color:rgba(56,232,255,.7)} .shot-card img{border-radius:17px;width:100%;aspect-ratio:16/9;object-fit:cover;object-position:top} .shot-card span{display:block;padding:14px} .shot-card b{display:block;font-size:18px} .shot-card small{display:block;color:var(--muted);margin-top:5px;line-height:1.4}
+    /* Tabla de comparativa entre vista previa y licencia */
     .compare{overflow:auto;border:1px solid var(--line);border-radius:26px;background:rgba(17,34,61,.65)} table{width:100%;border-collapse:collapse;min-width:720px} th,td{padding:18px 20px;border-bottom:1px solid var(--line);text-align:left} th{font-size:19px;background:rgba(30,144,255,.12)} td:nth-child(2),td:nth-child(3),th:nth-child(2),th:nth-child(3){text-align:center}
+    /* Planes de licencia y precios */
     .pricing{display:grid;grid-template-columns:repeat(4,1fr);gap:18px} .plan{border:1px solid var(--line);border-radius:28px;padding:26px;background:linear-gradient(180deg,rgba(23,40,70,.92),rgba(10,20,38,.84));transition:.25s} .plan:hover{transform:translateY(-6px);border-color:var(--cyan)} .plan h3{font-size:25px;margin:0 0 12px} .price{font-size:44px;font-weight:950;letter-spacing:-.06em;margin:8px 0} .price small{font-size:16px;color:var(--muted)} .plan p{color:var(--muted)}
+    /* Seccion final de descarga */
     .download{text-align:center;border:1px solid rgba(56,232,255,.35);border-radius:34px;background:radial-gradient(circle at 80% 0%,rgba(56,232,255,.18),transparent 30rem),rgba(13,25,46,.82);box-shadow:var(--shadow);margin:60px clamp(16px,5vw,70px);padding:56px} .download h2{font-size:clamp(36px,5vw,68px);margin:0 0 10px;letter-spacing:-.07em} .download p{max-width:760px;margin:0 auto 24px;color:var(--muted);line-height:1.6;font-size:18px}
+    /* Caja del resumen del EULA */
     .eula-box{border:1px solid var(--line);border-radius:30px;background:rgba(17,34,61,.72);padding:28px} .eula-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;margin:20px 0} .mini{border:1px solid var(--line);border-radius:20px;padding:18px;background:rgba(255,255,255,.04)} .mini b{display:block;margin-bottom:6px} .mini span{color:var(--muted);line-height:1.45}
+    /* Pie de pagina con derechos reservados */
     footer{padding:36px clamp(16px,5vw,70px);border-top:1px solid var(--line);color:var(--muted);background:rgba(4,9,20,.72)} .rights{font-size:14px;line-height:1.6;max-width:1100px}
+    /* Ventanas emergentes de compra, EULA y capturas */
     .modal{position:fixed;inset:0;z-index:60;display:none;place-items:center;background:rgba(0,0,0,.72);backdrop-filter:blur(14px);padding:18px} .modal.open{display:grid} .modal-card{width:min(1060px,96vw);max-height:90svh;overflow:auto;border:1px solid rgba(125,174,255,.32);border-radius:30px;background:linear-gradient(180deg,rgba(11,22,42,.98),rgba(6,12,24,.98));box-shadow:var(--shadow);padding:26px} .modal-head{display:flex;align-items:flex-start;justify-content:space-between;gap:20px} .x{border:1px solid var(--line);background:rgba(255,255,255,.06);color:white;border-radius:14px;padding:10px 14px;cursor:pointer;font-weight:900} .modal h2{font-size:34px;letter-spacing:-.04em;margin:0 0 8px} .modal p{color:var(--muted);line-height:1.55} .contact-panel{display:none;margin-top:18px;border:1px solid rgba(56,232,255,.32);border-radius:24px;padding:20px;background:rgba(30,144,255,.08)} .contact-panel.show{display:block} .contact-actions{display:flex;gap:12px;flex-wrap:wrap;margin-top:14px} .field{width:100%;border:1px solid var(--line);background:#071121;color:white;border-radius:14px;padding:13px;margin:7px 0} textarea.field{min-height:95px;resize:vertical} pre{white-space:pre-wrap;color:#d8e7ff;background:#050914;border:1px solid var(--line);border-radius:20px;padding:18px;max-height:62svh;overflow:auto}
+    /* Animacion al aparecer cuando bajas en la pagina */
     .reveal{opacity:0;transform:translateY(22px);transition:.7s ease} .reveal.visible{opacity:1;transform:translateY(0)}
+    /* Ajustes responsive para tablet o pantallas medianas */
     @media(max-width:980px){nav{display:none}.hero,.score-box{grid-template-columns:1fr}.hero-card{transform:none;animation:none}.stats,.cards,.gallery,.pricing,.eula-grid{grid-template-columns:1fr 1fr}}
+    /* Ajustes responsive para celulares */
     @media(max-width:620px){.stats,.cards,.gallery,.pricing,.eula-grid{grid-template-columns:1fr}.actions,.contact-actions{flex-direction:column}.download{padding:28px;margin:35px 16px}}
-  </style>
+    </style>
+  <!-- Aqui acaba el CSS principal -->
 </head>
 <body>
+  <!-- Aqui empieza lo visible de la pagina -->
+    <!-- Barra de arriba con logo y accesos rapidos -->
   <header class="topbar">
     <a class="brand" href="#inicio"><img src="./WinSweep.ico" alt="WinSweep"><span>Win<em>Sweep</em></span></a>
     <nav><a href="#funciones">Funciones</a><a href="#score">Score</a><a href="#capturas">Capturas</a><a href="#licencias">Licencias</a><a href="#eula">EULA</a><a href="#contacto">Contacto</a></nav>
   </header>
 
+    <!-- Seccion de inicio, aqui vendo WinSweep como producto principal -->
   <main class="hero" id="inicio">
     <div>
+      <!-- Aviso principal de version, aqui digo que es vista previa -->
       <span class="pill">⚡ WinSweep 2.0.1 · Vista previa disponible</span>
       <h1>Limpieza inteligente, <span class="grad">segura y reversible.</span></h1>
       <p class="lead">WinSweep analiza el estado aproximado de rendimiento del equipo, detecta basura recuperable y permite limpiar con cápsulas locales de recuperación antes de borrar.</p>
+      <!-- Botones principales, uno abre la compra/descarga y el otro baja a capturas -->
       <div class="actions"><button class="btn primary" data-open-buy>⬇ Descargar el software</button><a class="btn ghost" href="#capturas">Ver capturas</a></div>
+      <!-- Nota importante para que nadie crea que ya va con licencia completa -->
       <div class="preview-note"><b>Vista previa sin licencia:</b> puedes descargar e instalar WinSweep para conocerlo. Algunas funciones avanzadas requieren una licencia activa.</div>
     </div>
     <button class="hero-card shot-card" data-img="WinSweep-Screenshots/PanelPrincipal1.png" aria-label="Abrir captura principal"><img src="WinSweep-Screenshots/PanelPrincipal1.png" alt="Panel principal WinSweep"></button>
   </main>
 
+    <!-- Estadisticas rapidas para que el usuario vea lo mas importante sin leer tanto -->
   <div class="stats">
     <div class="stat reveal"><strong>98/100</strong><span>WinSweep Score aproximado</span></div>
     <div class="stat reveal"><strong>7 días</strong><span>Cápsulas de recuperación</span></div>
@@ -70,6 +117,7 @@
     <div class="stat reveal"><strong>HWID</strong><span>Licencia firmada por equipo</span></div>
   </div>
 
+    <!-- Seccion de funciones principales de WinSweep -->
   <section id="funciones">
     <div class="section-title reveal"><h2>Diseñado para limpiar sin miedo</h2><p>Funciones reales de WinSweep 2.0.1: limpieza reversible, inventario, salud posterior, diagnóstico privado, predicción y certificados PDF.</p></div>
     <div class="cards">
@@ -82,6 +130,7 @@
     </div>
   </section>
 
+    <!-- Seccion donde explico que es el WinSweep Score -->
   <section id="score">
     <div class="score-box reveal">
       <div><span class="pill">WinSweep Score</span><h2 style="font-size:clamp(34px,5vw,60px);letter-spacing:-.06em;margin:18px 0 12px">Rendimiento aproximado del equipo</h2><p class="lead">El Score no es una calificación mágica: es una referencia aproximada del estado del equipo. Mientras más se llena de basura, cachés, temporales y archivos regenerables, el puntaje baja. Después de limpiar, el score puede subir.</p></div>
@@ -89,6 +138,7 @@
     </div>
   </section>
 
+    <!-- Galeria de capturas, aqui se muestran las pantallas reales de la app -->
   <section id="capturas">
     <div class="section-title reveal"><h2>Capturas de WinSweep</h2><p>Interfaz completa con temas, recuperación, limpieza, historial, configuración e inteligencia.</p></div>
     <div class="gallery"><button class="shot-card reveal" data-img="WinSweep-Screenshots/PanelPrincipal1.png">
@@ -141,6 +191,7 @@
 </button></div>
   </section>
 
+    <!-- Comparativa para explicar que tiene la vista previa y que tiene la licencia -->
   <section id="comparativa">
     <div class="section-title reveal"><h2>Vista previa vs licencia completa</h2><p>La descarga pública es una vista previa. Para uso completo se requiere licencia activa.</p></div>
     <div class="compare reveal"><table><thead><tr><th>Función</th><th>Vista previa</th><th>Licencia activa</th></tr></thead><tbody>
@@ -148,6 +199,7 @@
     </tbody></table></div>
   </section>
 
+    <!-- Planes de pago, esto es para que el cliente elija su licencia -->
   <section id="licencias">
     <div class="section-title reveal"><h2>Licencias</h2><p>Elige un plan. Después podrás contactar por Gmail o WhatsApp sin abrir aplicaciones raras de Windows.</p></div>
     <div class="pricing">
@@ -158,12 +210,14 @@
     </div>
   </section>
 
+    <!-- Apartado de descarga, no digo rar, digo descargar el software -->
   <section class="download reveal" id="descargar">
     <h2>Descargar WinSweep 2.0.1</h2>
     <p>La descarga corresponde a una vista previa sin licencia. Algunas funciones requieren licencia activa para desbloquearse.</p>
     <button class="btn primary" data-open-buy>⬇ Descargar el software</button>
   </section>
 
+    <!-- Apartado legal EULA, para que se mire mas serio y profecional -->
   <section id="eula">
     <div class="section-title reveal"><h2>EULA</h2><p>WinSweep se distribuye bajo un acuerdo de licencia de usuario final.</p></div>
     <div class="eula-box reveal">
@@ -173,6 +227,7 @@
     </div>
   </section>
 
+    <!-- Footer con contacto y derechos reservados, esto va asta abajo -->
   <footer id="contacto">
     <div class="rights">
       <b>© 2026 WinSweep® — Angel Rafael Espíndola Hernández. Todos los derechos reservados.</b><br>
@@ -181,12 +236,14 @@
     </div>
   </footer>
 
+    <!-- Modal de compra y descarga, se abre cuando le pican a descargar o comprar -->
   <div class="modal" id="buyModal"><div class="modal-card"><div class="modal-head"><div><h2>Descargar WinSweep</h2><p><b>Vista previa sin licencia.</b> Puedes descargar el software. Para desbloquear funciones completas, solicita una licencia.</p></div><button class="x" data-close>✕</button></div>
     <div class="pricing" style="margin-top:18px"><article class="plan"><h3>Mensual</h3><div class="price">$100 <small>MXN</small></div><button class="btn primary" data-plan="Mensual - $100 MXN">Elegir mensual</button></article><article class="plan"><h3>Medio año</h3><div class="price">$600 <small>MXN</small></div><button class="btn primary" data-plan="Medio año - $600 MXN">Elegir medio año</button></article><article class="plan"><h3>Anual</h3><div class="price">$1000 <small>MXN</small></div><button class="btn primary" data-plan="Anual - $1000 MXN">Elegir anual</button></article><article class="plan"><h3>Personalizada</h3><div class="price">A tratar</div><button class="btn primary" data-plan="Personalizada">Elegir personalizada</button></article></div>
     <div class="contact-panel" id="contactPanel"><h3 id="chosenPlan">Plan seleccionado</h3><input class="field" id="clientName" placeholder="Nombre del cliente"><input class="field" id="clientEmail" placeholder="Correo del cliente"><textarea class="field" id="clientMsg" placeholder="Mensaje adicional"></textarea><div class="contact-actions"><button class="btn primary" id="gmailBtn">Abrir Gmail</button><button class="btn whats" id="waBtn">Abrir WhatsApp</button></div><p>Contacto oficial: <b>drip3pya1ngel2@gmail.com</b> · WhatsApp: <b>+52 238 205 7500</b></p></div>
     <div class="contact-actions" style="margin-top:20px"><a class="btn ghost" href="https://drive.google.com/uc?export=download&id=1hQt27_S9piaoVg67mEc9P5knjQGkZCp8" target="_blank" rel="noopener">⬇ Descargar el software</a><button class="btn primary" data-plan="Quiero comprar una licencia">Comprar licencia</button></div>
   </div></div>
 
+    <!-- Modal donde se muestra el EULA completo sin sacar al usuario de la pagina -->
   <div class="modal" id="eulaModal"><div class="modal-card"><div class="modal-head"><div><h2>EULA completo</h2><p>End User License Agreement de WinSweep 2.0.1.</p></div><button class="x" data-close>✕</button></div><pre>﻿================================================================================
                      END USER LICENSE AGREEMENT (EULA)
                                    WinSweep
@@ -486,16 +543,26 @@ Unauthorized reproduction or distribution of this software,
 in whole or in part, is strictly prohibited.
 
 ================================================================================</pre></div></div>
+    <!-- Modal para ver las capturas en grande -->
   <div class="modal" id="lightbox"><div class="modal-card"><div class="modal-head"><h2>Captura</h2><button class="x" data-close>✕</button></div><img id="lightImg" src="" alt="Captura ampliada" style="width:100%;border-radius:20px;border:1px solid var(--line)"></div></div>
 
+    <!-- Aqui empieza JavaScript, osea la logica de botones, modales, Gmail, WhatsApp y animaciones -->
   <script>
+    // Link directo de descarga de Google Drive, este apunta al software nadamas
     const DOWNLOAD_URL='https://drive.google.com/uc?export=download&id=1hQt27_S9piaoVg67mEc9P5knjQGkZCp8';
+    // Datos de contacto oficiales, el telefono va con lada de Mexico sin el + para WhatsApp
     const EMAIL='drip3pya1ngel2@gmail.com'; const PHONE='522382057500'; let selectedPlan='';
+    // Atajos para agarrar elementos del HTML mas rapido
     const $=s=>document.querySelector(s); const $$=s=>document.querySelectorAll(s);
+    // Funciones para abrir y cerrar ventanas emergentes
     const open=m=>m.classList.add('open'); const closeAll=()=>$$('.modal').forEach(m=>m.classList.remove('open'));
+    // Botones que abren el modal de compra y el modal del EULA
     $$('[data-open-buy]').forEach(b=>b.onclick=()=>open($('#buyModal'))); $('[data-open-eula]').onclick=()=>open($('#eulaModal'));
+    // Cerrar modales con la X, clic afuera o tecla Escape
     $$('[data-close]').forEach(b=>b.onclick=closeAll); $$('.modal').forEach(m=>m.onclick=e=>{if(e.target===m)closeAll()}); document.onkeydown=e=>{if(e.key==='Escape')closeAll()};
+    // Cuando le das clic a una captura, se abre en grande
     $$('.shot-card').forEach(b=>{ if(b.dataset.img) b.onclick=()=>{$('#lightImg').src=b.dataset.img; open($('#lightbox'))} });
+    // Aqui se arma el mensaje automatico que se manda por Gmail o WhatsApp
     function buildMessage(){const name=$('#clientName')?.value||''; const email=$('#clientEmail')?.value||''; const msg=$('#clientMsg')?.value||''; return `Hola Angel.
 
 Me interesa adquirir WinSweep.
@@ -503,11 +570,18 @@ Plan: ${selectedPlan}
 Nombre: ${name}
 Correo: ${email}
 HWID (En configuracion de WinSweep): ${msg}`;}
+    // Cuando el cliente elige un plan, se guarda y aparece el panel de contacto
     function selectPlan(plan){selectedPlan=plan; $('#chosenPlan').textContent='Plan seleccionado: '+plan; $('#contactPanel').classList.add('show'); open($('#buyModal')); $('#contactPanel').scrollIntoView({behavior:'smooth',block:'center'})}
+    // Todos los botones con data-plan llaman a selectPlan
     $$('[data-plan]').forEach(b=>b.onclick=()=>selectPlan(b.dataset.plan));
+    // Abre Gmail en otra pestaña con el mensaje ya listo, asi no sale el mailto raro de Windows
     $('#gmailBtn').onclick=()=>{const body=encodeURIComponent(buildMessage()); const su=encodeURIComponent('Compra de licencia WinSweep - '+selectedPlan); window.open(`https://mail.google.com/mail/?view=cm&fs=1&to=${EMAIL}&su=${su}&body=${body}`,'_blank','noopener')};
+    // Abre WhatsApp con el mensaje escrito automaticamente
     $('#waBtn').onclick=()=>{window.open(`https://wa.me/${PHONE}?text=${encodeURIComponent(buildMessage())}`,'_blank','noopener')};
+    // Animacion de aparecer las secciones cuando vas bajando
     const obs=new IntersectionObserver(es=>es.forEach(e=>{if(e.isIntersecting)e.target.classList.add('visible')}),{threshold:.12}); $$('.reveal').forEach(el=>obs.observe(el));
-  </script>
+    </script>
+  <!-- Aqui acaba el JavaScript -->
+  <!-- Aqui termina lo visible de la pagina :') -->
 </body>
 </html>
