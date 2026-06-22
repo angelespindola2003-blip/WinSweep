@@ -5,124 +5,509 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>WinSweep 2.0.1 | Limpieza inteligente para Windows</title>
   <meta name="description" content="WinSweep 2.0.1: limpieza segura, reversible y profesional para Windows con Recovery Clean, cápsulas, duplicados inteligentes, temas, licencia HWID y certificado PDF." />
-  <meta name="theme-color" content="#0f172a" />
   <link rel="icon" href="./WinSweep.ico" type="image/x-icon" />
   <style>
-    :root{
-      --bg:#070b16; --bg2:#0b1222; --panel:#101b31; --panel2:#172843; --glass:rgba(18,32,56,.72);
-      --line:rgba(113,156,218,.22); --text:#f8fbff; --muted:#b8c7df; --soft:#7fa7da;
-      --blue:#1e90ff; --cyan:#3de8ff; --green:#28d48c; --violet:#8b5cf6; --orange:#ff6b35;
-      --shadow:0 28px 90px rgba(0,0,0,.42); --radius:28px;
+    :root {
+      --bg:#050914; --bg2:#081326; --panel:rgba(15,31,56,.72); --panel2:rgba(22,44,76,.9);
+      --line:rgba(121,166,255,.22); --text:#f8fbff; --muted:#b9c8e2; --blue:#1e90ff; --cyan:#38e8ff;
+      --green:#29d88f; --violet:#8b5cf6; --orange:#ff6b35; --danger:#ff4d5d; --shadow:0 30px 90px rgba(0,0,0,.42);
     }
-    *{box-sizing:border-box} html{scroll-behavior:smooth} body{margin:0;font-family:"Segoe UI",system-ui,-apple-system,BlinkMacSystemFont,sans-serif;color:var(--text);background:var(--bg);overflow-x:hidden}
-    body::before{content:"";position:fixed;inset:0;z-index:-3;background:radial-gradient(circle at 12% 8%,rgba(30,144,255,.26),transparent 28rem),radial-gradient(circle at 82% 18%,rgba(139,92,246,.22),transparent 30rem),radial-gradient(circle at 50% 100%,rgba(40,212,140,.16),transparent 35rem),linear-gradient(180deg,#08111f,#050814 50%,#03050b)}
-    body::after{content:"";position:fixed;inset:0;z-index:-2;opacity:.06;background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 220 220' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.75' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='220' height='220' filter='url(%23n)' opacity='.7'/%3E%3C/svg%3E")}
-    a{color:inherit;text-decoration:none} img{display:block;max-width:100%} button{font:inherit}
-    .orb{position:fixed;border-radius:50%;filter:blur(44px);opacity:.38;z-index:-1;animation:drift 11s ease-in-out infinite alternate}.orb.one{width:360px;height:360px;background:var(--blue);left:-120px;top:180px}.orb.two{width:300px;height:300px;background:var(--violet);right:-90px;top:130px;animation-delay:-4s}.orb.three{width:280px;height:280px;background:var(--green);left:45%;bottom:-120px;animation-delay:-7s}
-    @keyframes drift{from{transform:translate3d(0,0,0) scale(1)}to{transform:translate3d(40px,-35px,0) scale(1.12)}}
-    header{position:fixed;inset:0 0 auto 0;height:76px;z-index:40;display:flex;align-items:center;justify-content:space-between;padding:0 clamp(16px,5vw,74px);background:rgba(6,10,20,.68);backdrop-filter:blur(18px);border-bottom:1px solid var(--line)}
-    .brand{display:flex;align-items:center;gap:12px;font-weight:1000;font-size:24px;letter-spacing:-.05em}.brand img{width:40px;height:40px;border-radius:12px;box-shadow:0 0 0 1px rgba(255,255,255,.12)}.brand span{background:linear-gradient(90deg,var(--blue),var(--cyan));-webkit-background-clip:text;background-clip:text;color:transparent}
-    nav{display:flex;align-items:center;gap:24px;color:var(--muted);font-weight:700}nav a:hover{color:white}.nav-cta{padding:11px 16px;border-radius:999px;background:linear-gradient(135deg,var(--blue),var(--violet));color:white;box-shadow:0 14px 34px rgba(30,144,255,.22)}
-    .hero{min-height:100svh;display:grid;grid-template-columns:.86fr 1.14fr;gap:46px;align-items:center;padding:114px clamp(18px,5vw,74px) 54px}.badge{display:inline-flex;gap:9px;align-items:center;padding:9px 14px;border-radius:999px;background:rgba(30,144,255,.12);border:1px solid rgba(61,232,255,.24);color:#bdefff;font-weight:900}.pulse{width:8px;height:8px;background:var(--green);border-radius:50%;box-shadow:0 0 0 0 rgba(40,212,140,.7);animation:pulse 1.9s infinite}@keyframes pulse{to{box-shadow:0 0 0 12px rgba(40,212,140,0)}}
-    h1{font-size:clamp(48px,7vw,96px);line-height:.92;letter-spacing:-.08em;margin:18px 0}.gradient{background:linear-gradient(90deg,#fff,var(--cyan),var(--violet));-webkit-background-clip:text;background-clip:text;color:transparent}.lead{max-width:720px;color:var(--muted);font-size:clamp(18px,2vw,23px);line-height:1.62}.actions{display:flex;gap:14px;flex-wrap:wrap;margin-top:30px}.btn{border:0;cursor:pointer;display:inline-flex;align-items:center;justify-content:center;gap:10px;padding:15px 22px;border-radius:16px;font-weight:1000;transition:.24s ease}.btn.primary{background:linear-gradient(135deg,var(--blue),var(--cyan));color:#03101c;box-shadow:0 18px 45px rgba(30,144,255,.32)}.btn.pro{background:linear-gradient(135deg,var(--violet),var(--blue));color:white}.btn.ghost{background:rgba(255,255,255,.06);border:1px solid var(--line);color:white}.btn:hover{transform:translateY(-3px);filter:brightness(1.08)}
-    .hero-card{position:relative;padding:10px;border-radius:32px;border:1px solid rgba(140,190,255,.24);background:linear-gradient(135deg,rgba(61,232,255,.22),rgba(139,92,246,.12),rgba(255,255,255,.04));box-shadow:var(--shadow);transform:perspective(1100px) rotateY(-7deg) rotateX(4deg);animation:float 5s ease-in-out infinite}.hero-card img{border-radius:24px;border:1px solid rgba(255,255,255,.12)}.hero-card::before{content:"WinSweep 2.0.1";position:absolute;top:24px;left:24px;background:rgba(0,0,0,.42);backdrop-filter:blur(10px);border:1px solid rgba(255,255,255,.16);padding:9px 12px;border-radius:999px;font-weight:900}.hero-card::after{content:"Seguro · Reversible · Profesional";position:absolute;right:24px;bottom:24px;background:rgba(0,0,0,.45);backdrop-filter:blur(10px);border:1px solid rgba(255,255,255,.14);padding:9px 12px;border-radius:999px;color:#dbeafe;font-weight:800}@keyframes float{0%,100%{transform:perspective(1100px) rotateY(-7deg) rotateX(4deg) translateY(0)}50%{transform:perspective(1100px) rotateY(-7deg) rotateX(4deg) translateY(-14px)}}
-    .trust{display:grid;grid-template-columns:repeat(4,1fr);gap:14px;padding:0 clamp(18px,5vw,74px) 56px}.metric{padding:24px;border-radius:24px;background:var(--glass);border:1px solid var(--line);backdrop-filter:blur(12px)}.metric strong{display:block;font-size:clamp(28px,3vw,46px);letter-spacing:-.06em}.metric span{color:var(--muted)}
-    section{padding:74px clamp(18px,5vw,74px)}.title{text-align:center;max-width:880px;margin:0 auto 38px}.title h2{font-size:clamp(36px,5vw,68px);letter-spacing:-.07em;line-height:1;margin:0 0 14px}.title p{color:var(--muted);font-size:19px;line-height:1.6;margin:0}.grid{display:grid;grid-template-columns:repeat(3,1fr);gap:18px}.feature{padding:26px;border-radius:26px;background:linear-gradient(180deg,rgba(24,43,72,.82),rgba(13,23,42,.7));border:1px solid var(--line);min-height:210px;transition:.25s ease}.feature:hover{transform:translateY(-8px);border-color:rgba(61,232,255,.45);box-shadow:0 22px 70px rgba(0,0,0,.28)}.ico{font-size:36px}.feature h3{font-size:23px;margin:18px 0 9px}.feature p{color:var(--muted);line-height:1.58;margin:0}
-    .showcase{display:grid;grid-template-columns:.78fr 1.22fr;gap:34px;align-items:center}.copy{padding:30px;border-radius:28px;background:rgba(12,23,42,.64);border:1px solid var(--line);backdrop-filter:blur(14px)}.eyebrow{color:var(--cyan);text-transform:uppercase;font-weight:1000;letter-spacing:.16em;font-size:12px}.copy h2{font-size:clamp(34px,5vw,58px);letter-spacing:-.065em;line-height:1;margin:14px 0}.copy p{color:var(--muted);font-size:18px;line-height:1.62}.bullets{display:grid;gap:10px;margin-top:18px}.bullets div{color:#dbeafe}.bullets div::before{content:"✓";color:var(--green);font-weight:1000;margin-right:9px}.shot{border:0;cursor:zoom-in;padding:10px;border-radius:30px;background:linear-gradient(135deg,rgba(30,144,255,.52),rgba(139,92,246,.18),rgba(61,232,255,.12));box-shadow:var(--shadow);transition:.25s ease}.shot:hover{transform:translateY(-8px) scale(1.01)}.shot img{border-radius:22px;border:1px solid rgba(255,255,255,.13);background:#08111f}.reverse{grid-template-columns:1.22fr .78fr}.reverse .copy{order:2}.reverse .shot{order:1}
-    .carousel{padding-top:0}.slider{position:relative;overflow:hidden;border-radius:34px;border:1px solid var(--line);background:rgba(12,23,42,.72);box-shadow:var(--shadow)}.track{display:flex;transition:transform .65s cubic-bezier(.2,.8,.2,1)}.slide{min-width:100%;padding:16px}.slide img{width:100%;border-radius:24px;border:1px solid rgba(255,255,255,.12)}.slider-controls{display:flex;justify-content:center;gap:10px;margin-top:18px}.dot{width:12px;height:12px;border-radius:99px;border:0;background:rgba(255,255,255,.25);cursor:pointer}.dot.active{width:34px;background:linear-gradient(90deg,var(--blue),var(--cyan))}
-    .plans{display:grid;grid-template-columns:repeat(4,1fr);gap:16px}.plan{position:relative;padding:26px;border-radius:26px;background:linear-gradient(180deg,rgba(24,43,72,.9),rgba(9,18,34,.86));border:1px solid var(--line)}.plan.hot{border-color:rgba(61,232,255,.65);box-shadow:0 24px 70px rgba(30,144,255,.16)}.ribbon{position:absolute;right:18px;top:18px;background:rgba(40,212,140,.16);color:#a7f3d0;border:1px solid rgba(40,212,140,.35);border-radius:999px;padding:7px 10px;font-size:12px;font-weight:1000}.plan h3{font-size:24px;margin:0 0 12px}.price{font-size:42px;letter-spacing:-.06em;font-weight:1000}.price small{font-size:15px;color:var(--muted)}.plan p{color:var(--muted);line-height:1.55}.plan button{width:100%;margin-top:14px}
-    .compare{overflow:auto;border-radius:26px;border:1px solid var(--line);background:rgba(12,23,42,.68)}table{width:100%;border-collapse:collapse;min-width:720px}th,td{padding:18px 20px;border-bottom:1px solid rgba(113,156,218,.16);text-align:left}th{background:rgba(255,255,255,.05)}td:nth-child(2),td:nth-child(3),th:nth-child(2),th:nth-child(3){text-align:center}.yes{color:#7cf7bf;font-weight:1000}.no{color:#ffb4b4}
-    .download{padding:64px;border-radius:36px;background:radial-gradient(circle at 80% 0%,rgba(61,232,255,.2),transparent 28rem),linear-gradient(135deg,rgba(23,40,67,.9),rgba(10,18,34,.92));border:1px solid rgba(61,232,255,.26);box-shadow:var(--shadow);text-align:center}.download h2{font-size:clamp(40px,6vw,76px);letter-spacing:-.075em;margin:0 0 12px}.download p{max-width:760px;margin:0 auto 24px;color:var(--muted);font-size:18px;line-height:1.6}
-    footer{padding:32px clamp(18px,5vw,74px);border-top:1px solid var(--line);display:flex;gap:18px;justify-content:space-between;flex-wrap:wrap;color:var(--muted)}footer b{color:white}
-    .modal,.lightbox{position:fixed;inset:0;z-index:80;display:none;place-items:center;background:rgba(0,0,0,.78);backdrop-filter:blur(12px);padding:18px}.modal.open,.lightbox.open{display:grid}.modal-card{width:min(980px,96vw);max-height:90svh;overflow:auto;border-radius:30px;background:#0b1222;border:1px solid rgba(126,182,255,.25);box-shadow:var(--shadow);padding:26px}.modal-head{display:flex;justify-content:space-between;gap:18px;align-items:flex-start}.modal-head h2{font-size:38px;letter-spacing:-.06em;margin:0}.x{border:1px solid var(--line);background:rgba(255,255,255,.06);color:white;border-radius:14px;padding:10px 14px;cursor:pointer;font-weight:1000}.contact-box{display:none;margin-top:20px;padding:20px;border-radius:22px;background:rgba(30,144,255,.08);border:1px solid rgba(61,232,255,.22)}.contact-box.open{display:block}.contact-actions{display:flex;gap:12px;flex-wrap:wrap;margin-top:14px}.lightbox img{max-width:96vw;max-height:88svh;border-radius:18px;border:1px solid rgba(255,255,255,.16)}.reveal{opacity:0;transform:translateY(28px);transition:.75s ease}.reveal.visible{opacity:1;transform:translateY(0)}
-    @media(max-width:1080px){nav{display:none}.hero,.showcase,.reverse{grid-template-columns:1fr}.reverse .copy,.reverse .shot{order:initial}.hero-card{transform:none;animation:none}.trust,.plans{grid-template-columns:repeat(2,1fr)}.grid{grid-template-columns:1fr 1fr}}
-    @media(max-width:640px){header{height:66px}.brand{font-size:21px}.hero{padding-top:92px}.trust,.plans,.grid{grid-template-columns:1fr}.actions{flex-direction:column}.download{padding:28px}.copy{padding:22px}.hero-card::after{display:none}.modal-head h2{font-size:30px}}
+    *{box-sizing:border-box} html{scroll-behavior:smooth} body{margin:0;font-family:"Segoe UI",system-ui,sans-serif;color:var(--text);background:var(--bg);overflow-x:hidden}
+    body:before{content:"";position:fixed;inset:0;z-index:-3;background:radial-gradient(circle at 12% 8%,rgba(30,144,255,.3),transparent 30rem),radial-gradient(circle at 80% 15%,rgba(139,92,246,.23),transparent 32rem),radial-gradient(circle at 48% 95%,rgba(41,216,143,.15),transparent 40rem),linear-gradient(180deg,#071121,#050914 52%,#02040a)}
+    body:after{content:"";position:fixed;inset:0;z-index:-2;opacity:.055;background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 220 220' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.78' numOctaves='3'/%3E%3C/filter%3E%3Crect width='220' height='220' filter='url(%23n)'/%3E%3C/svg%3E")}
+    a{color:inherit;text-decoration:none} img{display:block;max-width:100%} button,input,textarea{font:inherit}
+    .topbar{position:fixed;top:0;left:0;right:0;z-index:20;display:flex;align-items:center;justify-content:space-between;padding:14px clamp(16px,5vw,70px);background:rgba(4,9,20,.72);backdrop-filter:blur(18px);border-bottom:1px solid var(--line)}
+    .brand{display:flex;align-items:center;gap:12px;font-size:23px;font-weight:950;letter-spacing:-.04em} .brand img{width:36px;height:36px;border-radius:10px} .brand em{font-style:normal;color:var(--cyan)}
+    nav{display:flex;gap:22px;color:var(--muted);font-weight:700;font-size:14px} nav a:hover{color:var(--cyan)}
+    .btn{border:0;border-radius:16px;padding:14px 20px;font-weight:950;cursor:pointer;display:inline-flex;align-items:center;justify-content:center;gap:10px;transition:.25s ease;white-space:nowrap}
+    .btn.primary{color:#02111d;background:linear-gradient(135deg,var(--blue),var(--cyan));box-shadow:0 18px 46px rgba(30,144,255,.32)}
+    .btn.ghost{color:var(--text);background:rgba(17,34,61,.72);border:1px solid var(--line)} .btn.whats{background:#25D366;color:#04180c} .btn:hover{transform:translateY(-3px);filter:brightness(1.08)}
+    .hero{min-height:100svh;display:grid;grid-template-columns:.88fr 1.12fr;gap:42px;align-items:center;padding:116px clamp(16px,5vw,70px) 54px}
+    .pill{display:inline-flex;gap:10px;align-items:center;width:max-content;padding:9px 14px;border:1px solid rgba(56,232,255,.35);border-radius:999px;background:rgba(56,232,255,.09);color:#bff8ff;font-weight:900}
+    h1{font-size:clamp(42px,7vw,92px);line-height:.92;letter-spacing:-.075em;margin:18px 0} .grad{background:linear-gradient(90deg,#fff,var(--cyan),var(--green));-webkit-background-clip:text;background-clip:text;color:transparent}
+    .lead{color:var(--muted);font-size:clamp(17px,2vw,22px);line-height:1.6;max-width:720px} .actions{display:flex;flex-wrap:wrap;gap:14px;margin-top:30px}
+    .preview-note{margin-top:16px;color:#d9e7ff;background:rgba(255,255,255,.06);border:1px solid var(--line);padding:13px 16px;border-radius:18px;line-height:1.45}
+    .hero-card{position:relative;border:1px solid var(--line);border-radius:30px;padding:10px;background:linear-gradient(180deg,rgba(255,255,255,.08),rgba(255,255,255,.02));box-shadow:var(--shadow);transform:perspective(1200px) rotateY(-7deg) rotateX(3deg);animation:float 4.4s ease-in-out infinite}
+    .hero-card img{border-radius:22px;border:1px solid rgba(255,255,255,.12)}
+    @keyframes float{0%,100%{transform:perspective(1200px) rotateY(-7deg) rotateX(3deg) translateY(0)}50%{transform:perspective(1200px) rotateY(-7deg) rotateX(3deg) translateY(-12px)}}
+    section{padding:74px clamp(16px,5vw,70px)} .section-title{text-align:center;max-width:920px;margin:0 auto 34px} .section-title h2{font-size:clamp(34px,5vw,66px);line-height:1;letter-spacing:-.065em;margin:0 0 12px} .section-title p{color:var(--muted);font-size:18px;line-height:1.6}
+    .stats{display:grid;grid-template-columns:repeat(4,1fr);gap:16px;padding:0 clamp(16px,5vw,70px) 50px;margin-top:-38px} .stat{padding:24px;border:1px solid var(--line);border-radius:24px;background:var(--panel);backdrop-filter:blur(16px)} .stat strong{display:block;font-size:clamp(28px,3.4vw,48px);letter-spacing:-.055em} .stat span{color:var(--muted)}
+    .cards{display:grid;grid-template-columns:repeat(3,1fr);gap:18px} .card{padding:25px;border:1px solid var(--line);border-radius:26px;background:linear-gradient(180deg,var(--panel2),rgba(13,25,46,.68));min-height:205px;transition:.25s} .card:hover{transform:translateY(-7px);border-color:rgba(56,232,255,.55)} .icon{font-size:35px} .card h3{font-size:24px;margin:16px 0 8px} .card p{color:var(--muted);line-height:1.58;margin:0}
+    .score-box{display:grid;grid-template-columns:1fr 1fr;gap:20px;align-items:center;background:linear-gradient(135deg,rgba(30,144,255,.12),rgba(139,92,246,.12));border:1px solid var(--line);border-radius:30px;padding:28px;box-shadow:var(--shadow)} .meter{width:min(290px,70vw);aspect-ratio:1;border-radius:50%;background:conic-gradient(var(--cyan) 0 88%,rgba(255,255,255,.1) 88% 100%);display:grid;place-items:center;margin:auto} .meter div{width:72%;aspect-ratio:1;border-radius:50%;background:#071121;display:grid;place-items:center;text-align:center} .meter b{font-size:54px} .meter small{color:var(--muted)}
+    .gallery{display:grid;grid-template-columns:repeat(3,1fr);gap:18px} .shot-card{text-align:left;color:var(--text);border:1px solid var(--line);border-radius:24px;background:rgba(17,34,61,.72);padding:9px;cursor:zoom-in;transition:.25s;overflow:hidden} .shot-card:hover{transform:translateY(-6px);border-color:rgba(56,232,255,.7)} .shot-card img{border-radius:17px;width:100%;aspect-ratio:16/9;object-fit:cover;object-position:top} .shot-card span{display:block;padding:14px} .shot-card b{display:block;font-size:18px} .shot-card small{display:block;color:var(--muted);margin-top:5px;line-height:1.4}
+    .compare{overflow:auto;border:1px solid var(--line);border-radius:26px;background:rgba(17,34,61,.65)} table{width:100%;border-collapse:collapse;min-width:720px} th,td{padding:18px 20px;border-bottom:1px solid var(--line);text-align:left} th{font-size:19px;background:rgba(30,144,255,.12)} td:nth-child(2),td:nth-child(3),th:nth-child(2),th:nth-child(3){text-align:center}
+    .pricing{display:grid;grid-template-columns:repeat(4,1fr);gap:18px} .plan{border:1px solid var(--line);border-radius:28px;padding:26px;background:linear-gradient(180deg,rgba(23,40,70,.92),rgba(10,20,38,.84));transition:.25s} .plan:hover{transform:translateY(-6px);border-color:var(--cyan)} .plan h3{font-size:25px;margin:0 0 12px} .price{font-size:44px;font-weight:950;letter-spacing:-.06em;margin:8px 0} .price small{font-size:16px;color:var(--muted)} .plan p{color:var(--muted)}
+    .download{text-align:center;border:1px solid rgba(56,232,255,.35);border-radius:34px;background:radial-gradient(circle at 80% 0%,rgba(56,232,255,.18),transparent 30rem),rgba(13,25,46,.82);box-shadow:var(--shadow);margin:60px clamp(16px,5vw,70px);padding:56px} .download h2{font-size:clamp(36px,5vw,68px);margin:0 0 10px;letter-spacing:-.07em} .download p{max-width:760px;margin:0 auto 24px;color:var(--muted);line-height:1.6;font-size:18px}
+    .eula-box{border:1px solid var(--line);border-radius:30px;background:rgba(17,34,61,.72);padding:28px} .eula-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;margin:20px 0} .mini{border:1px solid var(--line);border-radius:20px;padding:18px;background:rgba(255,255,255,.04)} .mini b{display:block;margin-bottom:6px} .mini span{color:var(--muted);line-height:1.45}
+    footer{padding:36px clamp(16px,5vw,70px);border-top:1px solid var(--line);color:var(--muted);background:rgba(4,9,20,.72)} .rights{font-size:14px;line-height:1.6;max-width:1100px}
+    .modal{position:fixed;inset:0;z-index:60;display:none;place-items:center;background:rgba(0,0,0,.72);backdrop-filter:blur(14px);padding:18px} .modal.open{display:grid} .modal-card{width:min(1060px,96vw);max-height:90svh;overflow:auto;border:1px solid rgba(125,174,255,.32);border-radius:30px;background:linear-gradient(180deg,rgba(11,22,42,.98),rgba(6,12,24,.98));box-shadow:var(--shadow);padding:26px} .modal-head{display:flex;align-items:flex-start;justify-content:space-between;gap:20px} .x{border:1px solid var(--line);background:rgba(255,255,255,.06);color:white;border-radius:14px;padding:10px 14px;cursor:pointer;font-weight:900} .modal h2{font-size:34px;letter-spacing:-.04em;margin:0 0 8px} .modal p{color:var(--muted);line-height:1.55} .contact-panel{display:none;margin-top:18px;border:1px solid rgba(56,232,255,.32);border-radius:24px;padding:20px;background:rgba(30,144,255,.08)} .contact-panel.show{display:block} .contact-actions{display:flex;gap:12px;flex-wrap:wrap;margin-top:14px} .field{width:100%;border:1px solid var(--line);background:#071121;color:white;border-radius:14px;padding:13px;margin:7px 0} textarea.field{min-height:95px;resize:vertical} pre{white-space:pre-wrap;color:#d8e7ff;background:#050914;border:1px solid var(--line);border-radius:20px;padding:18px;max-height:62svh;overflow:auto}
+    .reveal{opacity:0;transform:translateY(22px);transition:.7s ease} .reveal.visible{opacity:1;transform:translateY(0)}
+    @media(max-width:980px){nav{display:none}.hero,.score-box{grid-template-columns:1fr}.hero-card{transform:none;animation:none}.stats,.cards,.gallery,.pricing,.eula-grid{grid-template-columns:1fr 1fr}}
+    @media(max-width:620px){.stats,.cards,.gallery,.pricing,.eula-grid{grid-template-columns:1fr}.actions,.contact-actions{flex-direction:column}.download{padding:28px;margin:35px 16px}}
   </style>
 </head>
 <body>
-  <div class="orb one"></div><div class="orb two"></div><div class="orb three"></div>
-  <header>
-    <a class="brand" href="#inicio"><img src="./WinSweep.ico" alt="WinSweep"><div>Win<span>Sweep</span></div></a>
-    <nav><a href="#funciones">Funciones</a><a href="#capturas">Capturas</a><a href="#planes">Planes</a><a href="#comparativa">Comparativa</a><a class="nav-cta" href="#descargar">Descargar</a></nav>
+  <header class="topbar">
+    <a class="brand" href="#inicio"><img src="./WinSweep.ico" alt="WinSweep"><span>Win<em>Sweep</em></span></a>
+    <nav><a href="#funciones">Funciones</a><a href="#score">Score</a><a href="#capturas">Capturas</a><a href="#licencias">Licencias</a><a href="#eula">EULA</a><a href="#contacto">Contacto</a></nav>
   </header>
+
   <main class="hero" id="inicio">
-    <div class="reveal">
-      <div class="badge"><span class="pulse"></span> WinSweep 2.0.1 · Limpieza inteligente para Windows</div>
-      <h1>Tu PC limpia, <span class="gradient">segura y reversible.</span></h1>
-      <p class="lead">WinSweep analiza, recomienda y limpia sin ir a ciegas: crea cápsulas de recuperación, protege datos personales, detecta duplicados con vista previa y genera certificados de limpieza.</p>
-      <div class="actions"><button class="btn primary" id="openBuyHero">⬇ Descargar WinSweep</button><a class="btn ghost" href="#capturas">Ver capturas</a><a class="btn pro" href="#planes">Ver licencias</a></div>
+    <div>
+      <span class="pill">⚡ WinSweep 2.0.1 · Vista previa disponible</span>
+      <h1>Limpieza inteligente, <span class="grad">segura y reversible.</span></h1>
+      <p class="lead">WinSweep analiza el estado aproximado de rendimiento del equipo, detecta basura recuperable y permite limpiar con cápsulas locales de recuperación antes de borrar.</p>
+      <div class="actions"><button class="btn primary" data-open-buy>⬇ Descargar el software</button><a class="btn ghost" href="#capturas">Ver capturas</a></div>
+      <div class="preview-note"><b>Vista previa sin licencia:</b> puedes descargar e instalar WinSweep para conocerlo. Algunas funciones avanzadas requieren una licencia activa.</div>
     </div>
-    <button class="hero-card shot" data-img="WinSweep-Screenshots/PanelPrincipal1.png" aria-label="Abrir panel principal"><img src="./WinSweep-Screenshots/PanelPrincipal1.png" alt="Panel principal WinSweep"></button>
+    <button class="hero-card shot-card" data-img="WinSweep-Screenshots/PanelPrincipal1.png" aria-label="Abrir captura principal"><img src="WinSweep-Screenshots/PanelPrincipal1.png" alt="Panel principal WinSweep"></button>
   </main>
-  <div class="trust">
-    <div class="metric reveal"><strong>98/100</strong><span>WinSweep Score</span></div><div class="metric reveal"><strong>7 días</strong><span>Cápsulas reversibles</span></div><div class="metric reveal"><strong>SHA-256</strong><span>Duplicados inteligentes</span></div><div class="metric reveal"><strong>x64 · x86 · ARM64</strong><span>Instalador automático</span></div>
+
+  <div class="stats">
+    <div class="stat reveal"><strong>98/100</strong><span>WinSweep Score aproximado</span></div>
+    <div class="stat reveal"><strong>7 días</strong><span>Cápsulas de recuperación</span></div>
+    <div class="stat reveal"><strong>SHA-256</strong><span>Duplicados inteligentes</span></div>
+    <div class="stat reveal"><strong>HWID</strong><span>Licencia firmada por equipo</span></div>
   </div>
+
   <section id="funciones">
-    <div class="title reveal"><h2>No es solo un limpiador. Es mantenimiento verificable.</h2><p>Diseñado para limpiar con control: vista previa, confirmaciones, recuperación y diagnóstico privado.</p></div>
-    <div class="grid">
-      <article class="feature reveal"><div class="ico">♻️</div><h3>Recovery Clean</h3><p>Crea una cápsula local con inventario antes de retirar archivos y permite restaurar durante 7 días.</p></article>
-      <article class="feature reveal"><div class="ico">🛡️</div><h3>Protección real</h3><p>No limpia System32, documentos, contraseñas ni datos personales. Las acciones delicadas piden confirmación.</p></article>
-      <article class="feature reveal"><div class="ico">🧠</div><h3>Inteligencia</h3><p>Basura recurrente, predicción de almacenamiento, mapa de seguridad, diagnóstico y certificado PDF.</p></article>
-      <article class="feature reveal"><div class="ico">📁</div><h3>Duplicados inteligentes</h3><p>Agrupa por tamaño y confirma igualdad con SHA-256. Nada se selecciona por defecto.</p></article>
-      <article class="feature reveal"><div class="ico">🎨</div><h3>7 temas</h3><p>Light, Dark, Blue, Emerald, Midnight, Graphite y Sunset con contraste ajustado.</p></article>
-      <article class="feature reveal"><div class="ico">🌎</div><h3>Español e Inglés</h3><p>Cambia todos los textos sin reiniciar: Español México e English United States.</p></article>
+    <div class="section-title reveal"><h2>Diseñado para limpiar sin miedo</h2><p>Funciones reales de WinSweep 2.0.1: limpieza reversible, inventario, salud posterior, diagnóstico privado, predicción y certificados PDF.</p></div>
+    <div class="cards">
+      <article class="card reveal"><div class="icon">♻️</div><h3>Recovery Clean</h3><p>Crea una cápsula local con inventario antes de limpiar y permite restaurar durante 7 días.</p></article>
+      <article class="card reveal"><div class="icon">🧹</div><h3>Limpieza segura</h3><p>Temporales, cachés de navegadores, cachés seguras de Windows y papelera con confirmación.</p></article>
+      <article class="card reveal"><div class="icon">🛡️</div><h3>Privacidad</h3><p>No limpia System32, documentos, contraseñas ni archivos personales. Descargas solo se revisa para duplicados.</p></article>
+      <article class="card reveal"><div class="icon">📁</div><h3>Duplicados SHA-256</h3><p>Agrupa por tamaño y confirma igualdad mediante SHA-256. Nada aparece seleccionado por defecto.</p></article>
+      <article class="card reveal"><div class="icon">📊</div><h3>Inteligencia</h3><p>Basura recurrente, predicción de almacenamiento, mapa de seguridad y diagnóstico técnico privado.</p></article>
+      <article class="card reveal"><div class="icon">🎨</div><h3>Temas e idiomas</h3><p>Light, Dark, Blue, Emerald, Midnight, Graphite, Sunset. Español México e Inglés Estados Unidos.</p></article>
     </div>
   </section>
-  <section class="showcase" id="capturas">
-    <div class="copy reveal"><span class="eyebrow">Dashboard</span><h2>Panel principal con score, recomendaciones y estado del equipo.</h2><p>Una vista clara para saber qué conviene revisar, cuánto espacio recuperar y cómo está el sistema.</p><div class="bullets"><div>Score visual animado</div><div>Recomendaciones por categoría</div><div>Información completa del equipo</div></div></div>
-    <button class="shot reveal" data-img="WinSweep-Screenshots/PanelPrincipal1.png"><img src="./WinSweep-Screenshots/PanelPrincipal1.png" alt="Panel principal" loading="lazy"></button>
-  </section>
-  <section class="showcase reverse">
-    <div class="copy reveal"><span class="eyebrow">Limpieza segura</span><h2>Limpia temporales, cachés y papelera con control.</h2><p>WinSweep analiza antes de actuar y separa acciones permanentes como la Papelera.</p><div class="bullets"><div>Cachés de navegadores</div><div>Cachés seguras de Windows</div><div>Limpieza profunda con confirmación</div></div></div>
-    <button class="shot reveal" data-img="WinSweep-Screenshots/Limpieza1.png"><img src="./WinSweep-Screenshots/Limpieza1.png" alt="Limpieza" loading="lazy"></button>
-  </section>
-  <section class="showcase">
-    <div class="copy reveal"><span class="eyebrow">Recuperación</span><h2>Cápsulas locales para restaurar cuando lo necesites.</h2><p>Consulta inventario, elimina cápsulas vencidas o restaura la más reciente.</p><div class="bullets"><div>Inventario por cápsula</div><div>Salud posterior a la limpieza</div><div>Restauración sin sobrescribir a ciegas</div></div></div>
-    <button class="shot reveal" data-img="WinSweep-Screenshots/Recuperacion.png"><img src="./WinSweep-Screenshots/Recuperacion.png" alt="Recuperación" loading="lazy"></button>
-  </section>
-  <section class="carousel">
-    <div class="title reveal"><h2>Temas, herramientas y módulos</h2><p>Capturas reales de WinSweep 2.0.1 listas para tu página oficial.</p></div>
-    <div class="slider reveal" id="slider"><div class="track">
-      <div class="slide"><img src="./WinSweep-Screenshots/MindnightTheme.png" alt="Midnight Theme"></div>
-      <div class="slide"><img src="./WinSweep-Screenshots/EmeraldTheme.png" alt="Emerald Theme"></div>
-      <div class="slide"><img src="./WinSweep-Screenshots/SunsetTheme.png" alt="Sunset Theme"></div>
-      <div class="slide"><img src="./WinSweep-Screenshots/GraphiteTheme.png" alt="Graphite Theme"></div>
-      <div class="slide"><img src="./WinSweep-Screenshots/Inteligencia.png" alt="Inteligencia"></div>
-      <div class="slide"><img src="./WinSweep-Screenshots/Info.png" alt="Info"></div>
-    </div></div><div class="slider-controls" id="dots"></div>
-  </section>
-  <section id="planes">
-    <div class="title reveal"><h2>Elige tu licencia</h2><p>La licencia es firmada, puede vincularse al HWID del equipo y se activa con archivo .key.</p></div>
-    <div class="plans">
-      <article class="plan reveal"><h3>Mensual</h3><div class="price">$100 <small>MXN</small></div><p>Ideal para probar WinSweep Pro durante un mes.</p><button class="btn primary buy" data-plan="Licencia mensual - $100 MXN">Solicitar</button></article>
-      <article class="plan reveal"><h3>Medio año</h3><div class="price">$600 <small>MXN</small></div><p>Seis meses de uso con licencia activa.</p><button class="btn primary buy" data-plan="Licencia medio año - $600 MXN">Solicitar</button></article>
-      <article class="plan hot reveal"><span class="ribbon">Mejor valor</span><h3>Un año</h3><div class="price">$1000 <small>MXN</small></div><p>La mejor opción para uso personal o profesional.</p><button class="btn primary buy" data-plan="Licencia anual - $1000 MXN">Solicitar</button></article>
-      <article class="plan reveal"><h3>Personalizada</h3><div class="price">A tratar</div><p>El cliente elige el tiempo que necesita.</p><button class="btn primary buy" data-plan="Licencia personalizada">Solicitar</button></article>
+
+  <section id="score">
+    <div class="score-box reveal">
+      <div><span class="pill">WinSweep Score</span><h2 style="font-size:clamp(34px,5vw,60px);letter-spacing:-.06em;margin:18px 0 12px">Rendimiento aproximado del equipo</h2><p class="lead">El Score no es una calificación mágica: es una referencia aproximada del estado del equipo. Mientras más se llena de basura, cachés, temporales y archivos regenerables, el puntaje baja. Después de limpiar, el score puede subir.</p></div>
+      <div class="meter"><div><b>98</b><small>/100 Excelente</small></div></div>
     </div>
   </section>
+
+  <section id="capturas">
+    <div class="section-title reveal"><h2>Capturas de WinSweep</h2><p>Interfaz completa con temas, recuperación, limpieza, historial, configuración e inteligencia.</p></div>
+    <div class="gallery"><button class="shot-card reveal" data-img="WinSweep-Screenshots/PanelPrincipal1.png">
+  <img src="WinSweep-Screenshots/PanelPrincipal1.png" alt="Panel principal" loading="lazy">
+  <span><b>Panel principal</b><small>Score de rendimiento, espacio recuperable y recomendaciones.</small></span>
+</button>
+<button class="shot-card reveal" data-img="WinSweep-Screenshots/Limpieza1.png">
+  <img src="WinSweep-Screenshots/Limpieza1.png" alt="Limpieza segura" loading="lazy">
+  <span><b>Limpieza segura</b><small>Temporales, cachés, papelera y limpieza profunda reversible.</small></span>
+</button>
+<button class="shot-card reveal" data-img="WinSweep-Screenshots/Limpieza2.png">
+  <img src="WinSweep-Screenshots/Limpieza2.png" alt="Recovery Clean" loading="lazy">
+  <span><b>Recovery Clean</b><small>Cápsula local antes de limpiar e inventario de archivos.</small></span>
+</button>
+<button class="shot-card reveal" data-img="WinSweep-Screenshots/Recuperacion.png">
+  <img src="WinSweep-Screenshots/Recuperacion.png" alt="Recuperación" loading="lazy">
+  <span><b>Recuperación</b><small>Restauración local y salud posterior a la limpieza.</small></span>
+</button>
+<button class="shot-card reveal" data-img="WinSweep-Screenshots/Inteligencia.png">
+  <img src="WinSweep-Screenshots/Inteligencia.png" alt="Inteligencia" loading="lazy">
+  <span><b>Inteligencia</b><small>Predicción, mapa de seguridad, duplicados y certificado.</small></span>
+</button>
+<button class="shot-card reveal" data-img="WinSweep-Screenshots/Configuracion.png">
+  <img src="WinSweep-Screenshots/Configuracion.png" alt="Configuración" loading="lazy">
+  <span><b>Configuración</b><small>Temas, idioma, recordatorios y licencia.</small></span>
+</button>
+<button class="shot-card reveal" data-img="WinSweep-Screenshots/Info.png">
+  <img src="WinSweep-Screenshots/Info.png" alt="Información" loading="lazy">
+  <span><b>Información</b><small>Privacidad, versión, autor y estado de licencia.</small></span>
+</button>
+<button class="shot-card reveal" data-img="WinSweep-Screenshots/EmeraldTheme.png">
+  <img src="WinSweep-Screenshots/EmeraldTheme.png" alt="Tema Emerald" loading="lazy">
+  <span><b>Tema Emerald</b><small>Paleta verde elegante.</small></span>
+</button>
+<button class="shot-card reveal" data-img="WinSweep-Screenshots/LightTheme.png">
+  <img src="WinSweep-Screenshots/LightTheme.png" alt="Tema Light" loading="lazy">
+  <span><b>Tema Light</b><small>Modo claro.</small></span>
+</button>
+<button class="shot-card reveal" data-img="WinSweep-Screenshots/GraphiteTheme.png">
+  <img src="WinSweep-Screenshots/GraphiteTheme.png" alt="Tema Graphite" loading="lazy">
+  <span><b>Tema Graphite</b><small>Modo oscuro neutro.</small></span>
+</button>
+<button class="shot-card reveal" data-img="WinSweep-Screenshots/SunsetTheme.png">
+  <img src="WinSweep-Screenshots/SunsetTheme.png" alt="Tema Sunset" loading="lazy">
+  <span><b>Tema Sunset</b><small>Paleta cálida.</small></span>
+</button>
+<button class="shot-card reveal" data-img="WinSweep-Screenshots/EnglishLanguage.png">
+  <img src="WinSweep-Screenshots/EnglishLanguage.png" alt="English UI" loading="lazy">
+  <span><b>English UI</b><small>Interfaz en inglés.</small></span>
+</button></div>
+  </section>
+
   <section id="comparativa">
-    <div class="title reveal"><h2>Demo vs Pro</h2><p>Presenta tu producto como software comercial sin mostrar el código fuente.</p></div>
-    <div class="compare reveal"><table><thead><tr><th>Función</th><th>Demo</th><th>Pro</th></tr></thead><tbody>
-      <tr><td>Análisis del sistema</td><td class="yes">✓</td><td class="yes">✓</td></tr><tr><td>Limpieza rápida</td><td class="yes">Limitada</td><td class="yes">Completa</td></tr><tr><td>Recovery Clean y cápsulas</td><td class="no">—</td><td class="yes">✓</td></tr><tr><td>Duplicados SHA-256 con vista previa</td><td class="no">—</td><td class="yes">✓</td></tr><tr><td>Certificado PDF</td><td class="no">—</td><td class="yes">✓</td></tr><tr><td>Licencia firmada por HWID</td><td class="no">—</td><td class="yes">✓</td></tr>
+    <div class="section-title reveal"><h2>Vista previa vs licencia completa</h2><p>La descarga pública es una vista previa. Para uso completo se requiere licencia activa.</p></div>
+    <div class="compare reveal"><table><thead><tr><th>Función</th><th>Vista previa</th><th>Licencia activa</th></tr></thead><tbody>
+      <tr><td>Instalar y revisar interfaz</td><td>✅</td><td>✅</td></tr><tr><td>Analizar espacio recuperable</td><td>✅</td><td>✅</td></tr><tr><td>Recovery Clean con cápsulas</td><td>Limitado</td><td>✅</td></tr><tr><td>Limpieza profunda</td><td>Limitado</td><td>✅</td></tr><tr><td>Duplicados inteligentes SHA-256</td><td>Vista previa</td><td>✅</td></tr><tr><td>Certificado PDF y diagnóstico</td><td>Limitado</td><td>✅</td></tr><tr><td>Renovación y soporte</td><td>—</td><td>✅</td></tr>
     </tbody></table></div>
   </section>
-  <section id="descargar"><div class="download reveal"><h2>Descarga WinSweep 2.0.1</h2><p>Al descargar aceptas el EULA. Para activar Pro, solicita tu licencia por WhatsApp o correo.</p><button class="btn primary" id="openBuyBottom">⬇ Descargar / Comprar licencia</button></div></section>
-  <footer><div><b>WinSweep</b> · Limpieza inteligente para Windows</div><div>Correo: <b>drip3pya1ngel2@gmail.com</b></div><div>WhatsApp: <b>+52 238 205 7500</b></div></footer>
-  <div class="modal" id="buyModal"><div class="modal-card"><div class="modal-head"><div><h2>Descargar WinSweep</h2><p class="lead" style="font-size:17px;margin:8px 0 0">Elige una licencia. Después podrás contactar por correo o WhatsApp y descargar el RAR.</p></div><button class="x closeModal">Cerrar ✕</button></div><div class="plans" style="margin-top:22px">
-      <article class="plan"><h3>Mensual</h3><div class="price">$100 <small>MXN</small></div><button class="btn primary buy" data-plan="Licencia mensual - $100 MXN">Elegir mensual</button></article>
-      <article class="plan"><h3>Medio año</h3><div class="price">$600 <small>MXN</small></div><button class="btn primary buy" data-plan="Licencia medio año - $600 MXN">Elegir medio año</button></article>
-      <article class="plan hot"><span class="ribbon">Recomendado</span><h3>Un año</h3><div class="price">$1000 <small>MXN</small></div><button class="btn primary buy" data-plan="Licencia anual - $1000 MXN">Elegir anual</button></article>
-      <article class="plan"><h3>Personalizada</h3><div class="price">A tratar</div><button class="btn primary buy" data-plan="Licencia personalizada">Elegir personalizada</button></article>
-    </div><div class="contact-box" id="contactBox"><h3 id="selectedPlan">Plan seleccionado</h3><p>Contacto oficial: <b>drip3pya1ngel2@gmail.com</b> · WhatsApp: <b>+52 238 205 7500</b></p><div class="contact-actions"><a class="btn primary" id="mailLink" href="#">Enviar correo</a><a class="btn pro" id="waLink" href="#" target="_blank" rel="noopener">Abrir WhatsApp</a><a class="btn ghost" href="https://drive.google.com/file/d/1hQt27_S9piaoVg67mEc9P5knjQGkZCp8/view?usp=drive_link" target="_blank" rel="noopener">Descargar RAR</a></div></div></div></div>
-  <div class="lightbox" id="lightbox"><button class="x" id="closeLight" style="position:fixed;top:18px;right:22px">Cerrar ✕</button><img src="" alt="Captura ampliada"></div>
+
+  <section id="licencias">
+    <div class="section-title reveal"><h2>Licencias</h2><p>Elige un plan. Después podrás contactar por Gmail o WhatsApp sin abrir aplicaciones raras de Windows.</p></div>
+    <div class="pricing">
+      <article class="plan reveal"><h3>Mensual</h3><div class="price">$100 <small>MXN</small></div><p>Ideal para probar funciones completas.</p><button class="btn primary" data-plan="Mensual - $100 MXN">Elegir mensual</button></article>
+      <article class="plan reveal"><h3>Medio año</h3><div class="price">$600 <small>MXN</small></div><p>6 meses de licencia activa.</p><button class="btn primary" data-plan="Medio año - $600 MXN">Elegir medio año</button></article>
+      <article class="plan reveal"><h3>Anual</h3><div class="price">$1000 <small>MXN</small></div><p>Mejor precio para uso continuo.</p><button class="btn primary" data-plan="Anual - $1000 MXN">Elegir anual</button></article>
+      <article class="plan reveal"><h3>Personalizada</h3><div class="price">A tratar</div><p>El tiempo que el cliente necesite.</p><button class="btn primary" data-plan="Personalizada">Elegir personalizada</button></article>
+    </div>
+  </section>
+
+  <section class="download reveal" id="descargar">
+    <h2>Descargar WinSweep 2.0.1</h2>
+    <p>La descarga corresponde a una vista previa sin licencia. Algunas funciones requieren licencia activa para desbloquearse.</p>
+    <button class="btn primary" data-open-buy>⬇ Descargar el software</button>
+  </section>
+
+  <section id="eula">
+    <div class="section-title reveal"><h2>EULA</h2><p>WinSweep se distribuye bajo un acuerdo de licencia de usuario final.</p></div>
+    <div class="eula-box reveal">
+      <h3>Resumen legal</h3>
+      <div class="eula-grid"><div class="mini"><b>Licencia, no venta</b><span>Comprar una licencia autoriza el uso, pero no transfiere propiedad del software.</span></div><div class="mini"><b>Activación HWID</b><span>La licencia puede estar firmada, vencer en una fecha y vincularse al hardware autorizado.</span></div><div class="mini"><b>Restricciones</b><span>No se permite ingeniería inversa, modificar protección, publicar llaves o redistribuir copias no autorizadas.</span></div><div class="mini"><b>Privacidad</b><span>WinSweep no recopila intencionalmente documentos, fotos, contraseñas o archivos privados.</span></div><div class="mini"><b>Responsabilidad</b><span>El usuario debe revisar vistas previas, mantener respaldos y atender advertencias.</span></div><div class="mini"><b>Soporte</b><span>Para ayuda se recomienda enviar diagnóstico técnico y descripción del problema.</span></div></div>
+      <button class="btn ghost" data-open-eula>Ver EULA completo</button>
+    </div>
+  </section>
+
+  <footer id="contacto">
+    <div class="rights">
+      <b>© 2026 WinSweep® — Angel Rafael Espíndola Hernández. Todos los derechos reservados.</b><br>
+      WinSweep®, su nombre, diseño, documentación, imágenes, instaladores y materiales asociados son propiedad de Angel Rafael Espíndola Hernández. Queda prohibida la reproducción, distribución, modificación, ingeniería inversa o venta no autorizada del software o sus componentes. WinSweep se distribuye bajo los términos del End User License Agreement (EULA).<br>
+      Contacto: <b>drip3pya1ngel2@gmail.com</b> · WhatsApp: <b>+52 238 205 7500</b> · Versión 2.0.1
+    </div>
+  </footer>
+
+  <div class="modal" id="buyModal"><div class="modal-card"><div class="modal-head"><div><h2>Descargar WinSweep</h2><p><b>Vista previa sin licencia.</b> Puedes descargar el software. Para desbloquear funciones completas, solicita una licencia.</p></div><button class="x" data-close>✕</button></div>
+    <div class="pricing" style="margin-top:18px"><article class="plan"><h3>Mensual</h3><div class="price">$100 <small>MXN</small></div><button class="btn primary" data-plan="Mensual - $100 MXN">Elegir mensual</button></article><article class="plan"><h3>Medio año</h3><div class="price">$600 <small>MXN</small></div><button class="btn primary" data-plan="Medio año - $600 MXN">Elegir medio año</button></article><article class="plan"><h3>Anual</h3><div class="price">$1000 <small>MXN</small></div><button class="btn primary" data-plan="Anual - $1000 MXN">Elegir anual</button></article><article class="plan"><h3>Personalizada</h3><div class="price">A tratar</div><button class="btn primary" data-plan="Personalizada">Elegir personalizada</button></article></div>
+    <div class="contact-panel" id="contactPanel"><h3 id="chosenPlan">Plan seleccionado</h3><input class="field" id="clientName" placeholder="Nombre del cliente"><input class="field" id="clientEmail" placeholder="Correo del cliente"><textarea class="field" id="clientMsg" placeholder="Mensaje adicional"></textarea><div class="contact-actions"><button class="btn primary" id="gmailBtn">Abrir Gmail</button><button class="btn whats" id="waBtn">Abrir WhatsApp</button></div><p>Contacto oficial: <b>drip3pya1ngel2@gmail.com</b> · WhatsApp: <b>+52 238 205 7500</b></p></div>
+    <div class="contact-actions" style="margin-top:20px"><a class="btn ghost" href="https://drive.google.com/uc?export=download&id=1hQt27_S9piaoVg67mEc9P5knjQGkZCp8" target="_blank" rel="noopener">⬇ Descargar el software</a><button class="btn primary" data-plan="Quiero comprar una licencia">Comprar licencia</button></div>
+  </div></div>
+
+  <div class="modal" id="eulaModal"><div class="modal-card"><div class="modal-head"><div><h2>EULA completo</h2><p>End User License Agreement de WinSweep 2.0.1.</p></div><button class="x" data-close>✕</button></div><pre>﻿================================================================================
+                     END USER LICENSE AGREEMENT (EULA)
+                                   WinSweep
+================================================================================
+
+Version: 2.0.1
+Effective Date: June 21, 2026
+
+Copyright © 2026 Angel Rafael Espíndola Hernández.
+All Rights Reserved.
+
+IMPORTANT:
+
+PLEASE READ THIS LICENSE CAREFULLY BEFORE INSTALLING OR USING WINSWEEP.
+
+BY INSTALLING, COPYING, ACTIVATING OR USING WINSWEEP, YOU AGREE TO BE BOUND
+BY THE TERMS OF THIS LICENSE AGREEMENT.
+
+IF YOU DO NOT AGREE WITH THESE TERMS, DO NOT INSTALL OR USE THIS SOFTWARE.
+
+================================================================================
+1. DEFINITIONS
+================================================================================
+
+&quot;Software&quot; means WinSweep, including all executable files, libraries,
+documentation, graphics, icons, installers, updates and associated materials.
+
+Version 2.0.1 includes reversible cleaning with seven-day recovery capsules,
+cleanup inventories, health monitoring, duplicate previews, scheduled reminders,
+system diagnostics, storage forecasting, and user-selected PDF certificates.
+
+&quot;Author&quot; means:
+
+Angel Rafael Espíndola Hernández
+
+&quot;License&quot; means the authorization granted to use the software under this
+agreement.
+
+================================================================================
+2. OWNERSHIP
+================================================================================
+
+WinSweep is protected by copyright laws and international intellectual property
+treaties.
+
+The Software is licensed, not sold.
+
+Purchasing a license does NOT transfer ownership of the Software.
+
+All rights not expressly granted remain the exclusive property of the Author.
+
+================================================================================
+3. LICENSE GRANT
+================================================================================
+
+Subject to compliance with this agreement, the Author grants you a limited,
+personal, revocable, non-exclusive and non-transferable license to install
+and use WinSweep.
+
+Licenses may be issued for:
+
+• Personal Use
+• Professional Use
+• Commercial Use
+• Educational Use
+
+according to the license purchased.
+
+================================================================================
+4. DEMO VERSION
+================================================================================
+
+The Demo version is intended solely for evaluation purposes.
+
+The Demo may include limitations such as:
+
+• Disabled features
+• Usage limits
+• Watermarks
+• Limited updates
+• Time restrictions
+
+The Demo may not be used to bypass the purchase of a commercial license.
+
+================================================================================
+5. COMMERCIAL LICENSE
+================================================================================
+
+A valid commercial license unlocks the features corresponding to the purchased
+edition.
+
+Each license is valid only under the terms specified during purchase.
+
+Unless otherwise stated, licenses may not be shared, rented, sublicensed,
+leased or transferred.
+
+================================================================================
+6. ACTIVATION
+================================================================================
+
+WinSweep may require:
+
+A paid license may be cryptographically signed, limited by an expiration date,
+and bound to the authorized device hardware identifier (HWID). Reinstallation
+on the same device does not by itself grant a new license period. Hardware
+changes or transfer to another device may require reissuance by the Author.
+
+• Product Key
+• License File
+• Online Activation
+• Offline Activation
+• Hardware Identification
+
+The Author reserves the right to revoke licenses obtained through fraud,
+chargebacks, piracy or unauthorized distribution.
+
+================================================================================
+7. UPDATES
+================================================================================
+
+Updates may include:
+
+• Bug fixes
+• Security patches
+• Performance improvements
+• New features
+
+The Author is not obligated to provide free updates indefinitely.
+
+Major upgrades may require a new license.
+
+================================================================================
+8. PERMITTED USE
+================================================================================
+
+You may:
+
+✓ Install the software on authorized devices.
+
+✓ Use the software for personal or commercial purposes according to your
+license.
+
+✓ Create backup copies.
+
+================================================================================
+9. RESTRICTIONS
+================================================================================
+
+You may NOT:
+
+• Reverse engineer the Software.
+• Decompile or disassemble.
+• Modify executable files.
+• Remove copyright notices.
+• Remove license protection.
+• Circumvent activation mechanisms.
+• Redistribute modified versions.
+• Sell unauthorized copies.
+• Publish serial keys.
+• Use cracked versions.
+• Use WinSweep for illegal activities.
+
+================================================================================
+10. PIRACY
+================================================================================
+
+Unauthorized copying or distribution of WinSweep constitutes copyright
+infringement.
+
+The Author reserves the right to disable fraudulently obtained licenses and
+take legal action where applicable.
+
+================================================================================
+11. PRIVACY
+================================================================================
+
+WinSweep may collect limited technical information necessary for:
+
+• License validation
+• Software activation
+• Version verification
+• Crash diagnostics
+• Fraud prevention
+
+WinSweep does NOT intentionally collect personal documents, photos,
+passwords or private user files.
+
+================================================================================
+12. WARRANTY DISCLAIMER
+================================================================================
+
+THE SOFTWARE IS PROVIDED &quot;AS IS&quot; WITHOUT WARRANTIES OF ANY KIND.
+
+THE AUTHOR DISCLAIMS ALL WARRANTIES INCLUDING BUT NOT LIMITED TO:
+
+• MERCHANTABILITY
+• FITNESS FOR A PARTICULAR PURPOSE
+• NON-INFRINGEMENT
+• UNINTERRUPTED OPERATION
+• ERROR-FREE PERFORMANCE
+
+================================================================================
+13. LIMITATION OF LIABILITY
+================================================================================
+
+UNDER NO CIRCUMSTANCES SHALL THE AUTHOR BE LIABLE FOR:
+
+• Loss of data
+• Loss of profits
+• Business interruption
+• Hardware damage
+• Software conflicts
+• Indirect damages
+• Incidental damages
+• Consequential damages
+
+THE MAXIMUM LIABILITY SHALL NEVER EXCEED THE AMOUNT PAID FOR THE LICENSE.
+
+
+================================================================================
+14. MISUSE AND USER RESPONSIBILITY
+================================================================================
+
+The User is solely responsible for selecting actions, reviewing previews,
+maintaining appropriate backups and following all warnings displayed by
+WinSweep.
+
+To the maximum extent permitted by applicable law, the Author shall not be
+liable for damage, data loss, service interruption or any other consequence
+caused by misuse, negligent use, use outside the Software&#x27;s intended purpose,
+unauthorized modification, circumvention of safeguards, ignoring warnings,
+running the Software on unsupported systems, or using administrator privileges
+without understanding the selected operation.
+
+Recovery capsules reduce risk but do not replace a complete backup. The User
+accepts responsibility for verifying important data before any maintenance
+operation.
+================================================================================
+15. TERMINATION
+================================================================================
+
+Failure to comply with this Agreement immediately terminates your license.
+
+Upon termination you must:
+
+• Stop using WinSweep.
+• Destroy all copies.
+• Remove installed copies if requested.
+
+================================================================================
+16. EXPORT
+================================================================================
+
+You agree to comply with applicable export laws and regulations.
+
+================================================================================
+17. GOVERNING LAW
+================================================================================
+
+This Agreement shall be governed by the laws of the United Mexican States.
+
+Any dispute shall be submitted to the competent courts as permitted by
+applicable law.
+
+================================================================================
+18. ENTIRE AGREEMENT
+================================================================================
+
+This document constitutes the complete agreement between the Author and the
+User regarding WinSweep.
+
+================================================================================
+19. CONTACT
+================================================================================
+
+Author
+
+Angel Rafael Espíndola Hernández
+
+Official Website
+
+https://angelespindola2003-blip.github.io/WinSweep/
+
+Support Email
+
+drip3pya1ngel2@gmail.com
+
+================================================================================
+Copyright © 2026
+Angel Rafael Espíndola Hernández
+
+WinSweep®
+
+All Rights Reserved.
+
+Unauthorized reproduction or distribution of this software,
+in whole or in part, is strictly prohibited.
+
+================================================================================</pre></div></div>
+  <div class="modal" id="lightbox"><div class="modal-card"><div class="modal-head"><h2>Captura</h2><button class="x" data-close>✕</button></div><img id="lightImg" src="" alt="Captura ampliada" style="width:100%;border-radius:20px;border:1px solid var(--line)"></div></div>
+
   <script>
-    const reveal=new IntersectionObserver((entries)=>{entries.forEach(e=>{if(e.isIntersecting)e.target.classList.add('visible')})},{threshold:.12});document.querySelectorAll('.reveal').forEach(el=>reveal.observe(el));
-    const modal=document.getElementById('buyModal'); const openModal=()=>modal.classList.add('open'); document.getElementById('openBuyHero').onclick=openModal; document.getElementById('openBuyBottom').onclick=openModal; document.querySelectorAll('.closeModal').forEach(b=>b.onclick=()=>modal.classList.remove('open')); modal.addEventListener('click',e=>{if(e.target===modal)modal.classList.remove('open')});
-    const contact=document.getElementById('contactBox'), selected=document.getElementById('selectedPlan'), mail=document.getElementById('mailLink'), wa=document.getElementById('waLink');
-    document.querySelectorAll('.buy').forEach(btn=>btn.addEventListener('click',()=>{const plan=btn.dataset.plan; selected.textContent=plan; const msg=`Hola Angel. Quiero adquirir WinSweep 2.0.1. Plan: ${plan}. Mi nombre es: `; mail.href=`mailto:drip3pya1ngel2@gmail.com?subject=${encodeURIComponent('Compra de licencia WinSweep')}&body=${encodeURIComponent(msg)}`; wa.href=`https://wa.me/522382057500?text=${encodeURIComponent(msg)}`; contact.classList.add('open'); modal.classList.add('open'); contact.scrollIntoView({behavior:'smooth',block:'nearest'});}));
-    const light=document.getElementById('lightbox'), lightImg=light.querySelector('img'); document.querySelectorAll('.shot').forEach(s=>s.addEventListener('click',()=>{lightImg.src='./'+s.dataset.img; light.classList.add('open')})); document.getElementById('closeLight').onclick=()=>light.classList.remove('open'); light.addEventListener('click',e=>{if(e.target===light)light.classList.remove('open')});
-    const track=document.querySelector('.track'), slides=[...document.querySelectorAll('.slide')], dots=document.getElementById('dots'); let idx=0; slides.forEach((_,i)=>{const d=document.createElement('button');d.className='dot'+(i===0?' active':'');d.onclick=()=>go(i);dots.appendChild(d)}); const dotEls=[...document.querySelectorAll('.dot')]; function go(i){idx=i;track.style.transform=`translateX(-${idx*100}%)`;dotEls.forEach((d,k)=>d.classList.toggle('active',k===idx))} setInterval(()=>go((idx+1)%slides.length),4200);
-    document.addEventListener('keydown',e=>{if(e.key==='Escape'){modal.classList.remove('open');light.classList.remove('open')}});
+    const DOWNLOAD_URL='https://drive.google.com/uc?export=download&id=1hQt27_S9piaoVg67mEc9P5knjQGkZCp8';
+    const EMAIL='drip3pya1ngel2@gmail.com'; const PHONE='522382057500'; let selectedPlan='';
+    const $=s=>document.querySelector(s); const $$=s=>document.querySelectorAll(s);
+    const open=m=>m.classList.add('open'); const closeAll=()=>$$('.modal').forEach(m=>m.classList.remove('open'));
+    $$('[data-open-buy]').forEach(b=>b.onclick=()=>open($('#buyModal'))); $('[data-open-eula]').onclick=()=>open($('#eulaModal'));
+    $$('[data-close]').forEach(b=>b.onclick=closeAll); $$('.modal').forEach(m=>m.onclick=e=>{if(e.target===m)closeAll()}); document.onkeydown=e=>{if(e.key==='Escape')closeAll()};
+    $$('.shot-card').forEach(b=>{ if(b.dataset.img) b.onclick=()=>{$('#lightImg').src=b.dataset.img; open($('#lightbox'))} });
+    function buildMessage(){const name=$('#clientName')?.value||''; const email=$('#clientEmail')?.value||''; const msg=$('#clientMsg')?.value||''; return `Hola Angel.
+
+Me interesa adquirir WinSweep.
+Plan: ${selectedPlan}
+Nombre: ${name}
+Correo: ${email}
+Mensaje: ${msg}`;}
+    function selectPlan(plan){selectedPlan=plan; $('#chosenPlan').textContent='Plan seleccionado: '+plan; $('#contactPanel').classList.add('show'); open($('#buyModal')); $('#contactPanel').scrollIntoView({behavior:'smooth',block:'center'})}
+    $$('[data-plan]').forEach(b=>b.onclick=()=>selectPlan(b.dataset.plan));
+    $('#gmailBtn').onclick=()=>{const body=encodeURIComponent(buildMessage()); const su=encodeURIComponent('Compra de licencia WinSweep - '+selectedPlan); window.open(`https://mail.google.com/mail/?view=cm&fs=1&to=${EMAIL}&su=${su}&body=${body}`,'_blank','noopener')};
+    $('#waBtn').onclick=()=>{window.open(`https://wa.me/${PHONE}?text=${encodeURIComponent(buildMessage())}`,'_blank','noopener')};
+    const obs=new IntersectionObserver(es=>es.forEach(e=>{if(e.isIntersecting)e.target.classList.add('visible')}),{threshold:.12}); $$('.reveal').forEach(el=>obs.observe(el));
   </script>
 </body>
 </html>
