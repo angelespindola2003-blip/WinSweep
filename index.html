@@ -154,7 +154,7 @@
       <article class="plan reveal"><h3>Mensual</h3><div class="price">$100 <small>MXN</small></div><p>Ideal para probar funciones completas.</p><button class="btn primary" data-plan="Mensual - $100 MXN">Elegir mensual</button></article>
       <article class="plan reveal"><h3>Medio año</h3><div class="price">$600 <small>MXN</small></div><p>6 meses de licencia activa.</p><button class="btn primary" data-plan="Medio año - $600 MXN">Elegir medio año</button></article>
       <article class="plan reveal"><h3>Anual</h3><div class="price">$1000 <small>MXN</small></div><p>Mejor precio para uso continuo.</p><button class="btn primary" data-plan="Anual - $1000 MXN">Elegir anual</button></article>
-      <article class="plan reveal"><h3>Personalizada</h3><div class="price">A tratar</div><p>El tiempo que el cliente necesite.</p><button class="btn primary" data-plan="Personalizada">Elegir personalizada</button></article>
+      <article class="plan reveal"><h3>Personalizada</h3><div class="price">A tratar</div><p>El tiempo que lo necesites 😊.</p><button class="btn primary" data-plan="Personalizada">Elegir personalizada</button></article>
     </div>
   </section>
 
@@ -502,7 +502,7 @@ Me interesa adquirir WinSweep.
 Plan: ${selectedPlan}
 Nombre: ${name}
 Correo: ${email}
-Mensaje: ${msg}`;}
+HWID (En configuracion de WinSweep): ${msg}`;}
     function selectPlan(plan){selectedPlan=plan; $('#chosenPlan').textContent='Plan seleccionado: '+plan; $('#contactPanel').classList.add('show'); open($('#buyModal')); $('#contactPanel').scrollIntoView({behavior:'smooth',block:'center'})}
     $$('[data-plan]').forEach(b=>b.onclick=()=>selectPlan(b.dataset.plan));
     $('#gmailBtn').onclick=()=>{const body=encodeURIComponent(buildMessage()); const su=encodeURIComponent('Compra de licencia WinSweep - '+selectedPlan); window.open(`https://mail.google.com/mail/?view=cm&fs=1&to=${EMAIL}&su=${su}&body=${body}`,'_blank','noopener')};
